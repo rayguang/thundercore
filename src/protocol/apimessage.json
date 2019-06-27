@@ -1,0 +1,1048 @@
+// Request sent to trading engine when a new pair of API is created for user/exchange
+// Only the most recent API key/secret per exchange is allowed
+// Without further explaination, the message shoudl be sent in the same format 
+// as highlighted below, i.e., uppoer or lower cases.
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "ExchangeAPI",
+    "subType":      "NEW",
+    "uid":       436,
+    "exchange":     "COINBASE"
+}
+
+// When user deletes an existing exchange API key/secret, 
+// the following message should be sent to back-end. 
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "ExchangeAPI",
+    "subType":      "DELETE",
+    "uid":       436,
+    "exchange":     "BINANCE"
+}
+
+
+
+-- Get Ticker: get trading symbols info from exchange
+API: generic::GetTicker
+// BINANCE
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "generic",  
+    "subType":      "GetTicker",         
+    "uid":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BTCUSDT"
+}
+
+// BITFINEX
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "generic",  
+    "subType":      "GetTicker",         
+    "uid":       436,                        
+    "exchange":     "BITFINEX",
+    "symbol":       "BTCUSD"
+}
+
+// BITSTAMP 
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "generic",  
+    "subType":      "GetTicker",         
+    "uid":       436,                        
+    "exchange":     "BITSTAMP",
+    "symbol":       "BTCUSD"
+}
+
+// BITTREX
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "generic",  
+    "subType":      "GetTicker",         
+    "uid":       436,                        
+    "exchange":     "BITTREX",
+    "symbol":       "USD-XRP"
+}
+
+// COINBASE
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "generic",  
+    "subType":      "GetTicker",         
+    "uid":       436,                        
+    "exchange":     "COINBASE",
+    "symbol":       "BTC-USD"
+}
+
+// KRAKEN
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "generic",  
+    "subType":      "GetTicker",         
+    "uid":       436,                        
+    "exchange":     "KRAKEN",
+    "symbol":       "XXBTZUSD"
+}
+
+// Reply:
+root: {
+	"ctRequestId" : "cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+	"reply" : 
+	{
+		"price" : "8830.55",
+		"symbol" : "BTCUSD"
+	}
+}
+
+-- Get TickerPrice
+
+
+-- Get account balance
+API: account::GetBalance
+// BINANCE 
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "account",  
+    "subType":      "GetBalance",         
+    "uid":       436,                        
+    "exchange":     "BINANCE"
+}
+
+// BITSTAMP
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "account",  
+    "subType":      "GetBalance",         
+    "uid":       436,                        
+    "exchange":     "BITSTAMP"
+}
+
+// BITTREX
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "account",  
+    "subType":      "GetBalance",         
+    "uid":       436,                        
+    "exchange":     "BITTREX"
+}
+
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "account",  
+    "subType":      "GetBalance",         
+    "uid":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "account",  
+    "subType":      "GetBalance",         
+    "uid":       436,                        
+    "exchange":     "COINBASE"
+}
+
+{
+    "ctRequestId":	"cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+    "requestType":  "account",  
+    "subType":      "GetBalance",         
+    "uid":       436,                        
+    "exchange":     "BITFINEX"
+}
+
+//Reply 
+{
+	"ctRequestId": "cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+	"balances": [{
+		"Symbol": "BNB",
+		"Free": 4.08144,
+		"Locked": 0
+	}, {
+		"Symbol": "BTC",
+		"Free": 0.0299713,
+		"Locked": 0
+	}, {
+		"Symbol": "LTC",
+		"Free": 1,
+		"Locked": 0
+	}]
+}
+// Exchanges also provide other types of orders, e.g., stop, iceberg, instant orders
+// ALL these orders are coded with generic API interface and available depending on front-end/user requirement.
+-- Send market order
+API: order::SendMarketOrder
+NOTE: Bittrex does not provide market order
+// BINANCE
+{
+	"requestType":  "order",
+	"subType":      "SendMarketOrder",
+    "uid":       436,
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "side":         "BUY",
+    "quantity":     1,
+    "price":        0.003,
+    "ctRequestId":    "356932e6-df35-4932-98d2-f323ea3773db"
+}
+
+// BINANCE Reply
+root: {
+	"ctRequestId" : "1bddd91f-2ec4-4f42-94c3-ff9c071f30ed",
+	"reply" : 
+	{
+		"ctOrderIdO" : "1bddd91f-2ec4-4f42-94c3-ff9c071f30ed",
+		"orderId" : "183177982",
+		"origQty" : "1.00000000",
+		"price" : "BNBBTC",
+		"side" : "BUY",
+		"status" : "FILLED",
+		"symbol" : "BNBBTC",
+		"type" : "MARKET"
+	}
+}
+
+// BITSTAMP 
+{
+	"requestType":  "order",
+	"subType":      "SendMarketOrder",
+    "uid":       436,
+    "exchange":     "BITSTAMP",
+    "symbol":       "BTCUSD",
+    "side":         "SELL",
+    "timeInForce":  "GTC",
+    "quantity":     0.001,
+    "price":        8800,
+    "ctRequestId":   "356932e6-df35-4932-98d2-f323ea3773db"
+}
+
+// KRAKEN 
+{
+	"requestType":  "order",
+	"subType":      "SendMarketOrder",
+    "uid":       436,
+    "exchange":     "KRAKEN",
+    "symbol":       "XBTEUR",
+    "side":         "SELL",
+    "timeInForce":  "GTC",
+    "quantity":     0.002,
+    "price":        8800,
+    "ctRequestId":   "356932e6-df35-4932-98d2-f323ea3773db"
+}
+
+// COINBASE
+{
+	"requestType":  "order",
+	"subType":      "SendMarketOrder",
+    "uid":       436,
+    "exchange":     "COINBASE",
+    "symbol":       "BTC-USDC",
+	"side":         "SELL",
+    "quantity":     0.001,
+    "ctRequestId":    "46b518d2-ca04-421a-94b1-a57a1e0c6765"
+}
+
+// KRAKEN REPLY
+root: {
+	"ctRequestId" : "356932e6-df35-4932-98d2-f323ea3773db",
+	"reply" : 
+	{
+		"message" : 
+		{
+			"order" : "sell 0.00200000 XBTEUR @ market"
+		},
+		"orderId" : 
+		[
+			"OAQPQO-77TSP-CI53BJ"
+		]
+	}
+}
+
+
+
+-- Send limit order: place a limit order
+API: order::SendLimitOrder
+// BINANCE
+{
+	"requestType":  "order",
+	"subType":      "SendMarketOrder",
+    "uid":       436,
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+	"side":         "SELL",
+	"timeInForce":  "GTC",
+    "quantity":     10000,
+    "price":        0.003,
+    "ctRequestId":    "46b518d2-ca04-421a-94b1-a57a1e0c6765"
+}
+
+// BINANCE Reply
+root: {
+	"ctRequestId" : "b2fdc6c9-1dc7-4bb8-affc-55d776da0bc8",
+	"reply" : 
+	{
+		"ctOrderIdO" : "b2fdc6c9-1dc7-4bb8-affc-55d776da0bc8",
+		"orderId" : "183177502",
+		"origQty" : "1.00000000",
+		"price" : "BNBBTC",
+		"side" : "BUY",
+		"status" : "NEW",
+		"symbol" : "BNBBTC",
+		"type" : "LIMIT"
+	}
+}
+
+
+
+// BITTREX
+// timeInForce is not used in BITTREX, the engine can handle if TIF is filled anyway
+// For BITTREX, there are NO market order types. 
+// 1) Limit
+// 2) Stop limit
+{
+	"requestType":  "order",
+	"subType":      "SendLimitOrder",
+    "uid":       436,
+    "exchange":     "BITSTAMP",
+    "symbol":       "BTCUSD",
+    "side":         "SELL",
+    "timeInForce":  "GTC",
+    "quantity":     0.001,
+    "price":        8200,
+    "ctRequestId":   "356932e6-df35-4932-98d2-f323ea3773db"
+}
+
+// BITSTAMP
+{
+	"requestType":  "order",
+	"subType":      "SendLimitOrder",
+    "uid":       436,
+    "exchange":     "BITSTAMP",
+    "symbol":       "BTCUSD",
+    "side":         "SELL",
+    "timeInForce":  "GTC",
+    "quantity":     0.001,
+    "price":        8800,
+    "ctRequestId":   "356932e6-df35-4932-98d2-f323ea3773db"
+}
+
+// BITSTAMP REPLY
+root: {
+	"ctRequestId" : "356932e6-df35-4932-98d2-f323ea3773db",
+	"reply" : 
+	{
+		"orderId" : "3442265650",
+		"origQty" : "0.00100000",
+		"price" : "8200.00",
+		"type" : "LIMIT"
+	}
+}
+
+// KRAKEN
+{
+	"requestType":  "order",
+	"subType":      "SendLimitOrder",
+    "uid":       436,
+    "exchange":     "KRAKEN",
+    "symbol":       "XBTEUR",
+    "side":         "SELL",
+    "timeInForce":  "GTC",
+    "quantity":     0.002,
+    "price":        7300,
+    "ctRequestId":    "356932e6-df35-4932-98d2-f323ea3773db"
+}
+
+// COINBASE
+{
+	"requestType":  "order",
+	"subType":      "SendLimitOrder",
+    "uid":       436,
+    "exchange":     "COINBASE",
+    "symbol":       "BTC-USDC",
+	"side":         "SELL",
+	"timeInForce":  "GTC",
+    "quantity":     0.001,
+    "price":        8300,
+    "ctRequestId":    "46b518d2-ca04-421a-94b1-a57a1e0c6765"
+}
+
+
+    
+-- cancel one order: cancel one single order
+API: order::CancelOneOrder
+// BINANCE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "CancelOneOrder",         
+    "uid":       436,     
+    "orderId":      "168818361",  
+    "symbol":       "BNBBTC",            
+	"exchange":     "BINANCE"
+}
+
+// BINANCE REPLY
+{
+	"ctRequestId" : "O4GBHF-UJFCY-OASQQP",
+	"reply" : 
+	[
+		{
+			"clientOrderId" : "KAGm3c337wo03DwyovDgOW",
+			"orderId" : "182421369",
+			"status" : "CANCELED"
+		}
+	]
+}
+
+// BITTREX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "CancelOneOrder",         
+    "uid":       436,     
+    "orderId":      "9049bec3-78c9-4827-b568-84e99072e800",  
+    "symbol":       "",            
+	"exchange":     "BITTREX"
+}
+    
+-- cancel all orders: cancel all open orders
+API: order::CancelAllOrders
+{
+    "requestType":  "order",  
+    "subType":      "CancelAllOrders",         
+    "uid":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+	"ctRequestId":	"O4GBHF-UJFCY-OASQQP"
+}
+
+// BITSTAMP 
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "CancelOneOrder",         
+    "uid":       436,     
+    "orderId":      "3441899386",  
+	"exchange":     "BITSTAMP"
+}
+
+// BITSTAMP REPLY
+{
+	"amount" : 0.001,
+	"id" : 3441899386,
+	"price" : 8200.0,
+	"type" : 1
+}
+　
+// KRAKEN
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "CancelOneOrder",         
+    "uid":       436,     
+    "orderId":      "OIQUK7-25LFR-RB4CE2",           
+	"exchange":     "KRAKEN"
+}
+
+// COINBASE
+// KRAKEN
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "CancelOneOrder",         
+    "uid":       436,     
+    "orderId":      "f0dff240-2910-43d1-807c-2fda9c0a0d5c",           
+	"exchange":     "COINBASE"
+}
+
+
+-- get one order status
+AP: order::GetOrderStatus
+// BINANCE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderStatus",         
+    "uid":       436,                        
+    "exchange":     "BINANCE",
+    "orderId":      "183177982",
+    "symbol":       "BNBBTC"
+}
+
+// BINANCE REPLY
+{
+	"ctRequestId" : "O4GBHF-UJFCY-OASQQP",
+	"reply" : 
+	{
+		"ctOrderIdO" : "1bddd91f-2ec4-4f42-94c3-ff9c071f30ed",
+		"orderId" : "183177982",
+		"origQty" : "1.00000000",
+		"price" : "BNBBTC",
+		"side" : "BUY",
+		"status" : "FILLED",
+		"stopPrice" : "0.00000000",
+		"symbol" : "BNBBTC",
+		"type" : "MARKET"
+	}
+}
+
+// BITTREX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderStatus",         
+    "uid":       436,                        
+    "exchange":     "BITTREX",
+    "orderId":      "88d569b6-fe08-4b38-9dcf-6087d2db1762",
+    "symbol":       ""
+}
+
+// BITTREX REPLY:
+root: {
+	"ctRequestId" : "O4GBHF-UJFCY-OASQQP",
+	"message" : "",
+	"reply" : 
+	{
+		"orderId" : "9049bec3-78c9-4827-b568-84e99072e800",
+		"price" : 350.0,
+		"quantity" : 0.025000000000000001,
+		"symbol" : "USD-ETH",
+		"type" : "LIMIT_SELL"
+	}
+}
+
+// BITSTAMP
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderStatus",         
+    "uid":       436,                        
+    "exchange":     "BITSTAMP",
+    "orderId":      "3442265650",
+    "symbol":       ""
+}
+
+// BITSTAMP REPLY
+{
+	"ctRequestId" : "O4GBHF-UJFCY-OASQQP",
+	"reply" : 
+	{
+		"orderId" : "3442265650",
+		"status" : "Open"
+	}
+}
+
+// KRAKEN
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderStatus",         
+    "uid":       436,                        
+    "exchange":     "KRAKEN",
+    "orderId":      "OIQUK7-25LFR-RB4CE2",
+    "symbol":       ""
+}
+
+// COINBASE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderStatus",         
+    "uid":       436,                        
+    "exchange":     "COINBASE",
+    "orderId":      "eb009764-acff-4a7d-b6ce-19e87c92c070",
+    "symbol":       ""
+}
+
+-- get all open orders
+API: order::GetOpenOrders
+// BINANCE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetAllOpenOrders",         
+    "uid":       436,   
+   "symbol":       "BNBBTC",                     
+    "exchange":     "BINANCE"
+}
+
+// BINANCE REPLY
+{
+	"ctRequestId" : "O4GBHF-UJFCY-OASQQP",
+	"reply" : 
+	[
+		{
+			"orderId" : "182421369",
+			"origQty" : "1.00000000",
+			"price" : "0.00100000",
+			"side" : "BUY",
+			"status" : "NEW",
+			"stopPrice" : "0.00000000",
+			"symbol" : "BNBBTC",
+			"type" : "LIMIT"
+		},
+		{
+			"orderId" : "183164972",
+			"origQty" : "1.00000000",
+			"price" : "0.00300000",
+			"side" : "BUY",
+			"status" : "NEW",
+			"stopPrice" : "0.00000000",
+			"symbol" : "BNBBTC",
+			"type" : "LIMIT"
+		},
+		{
+			"orderId" : "183173660",
+			"origQty" : "1.00000000",
+			"price" : "0.00300000",
+			"side" : "BUY",
+			"status" : "NEW",
+			"stopPrice" : "0.00000000",
+			"symbol" : "BNBBTC",
+			"type" : "LIMIT"
+		},
+		{
+			"orderId" : "183177502",
+			"origQty" : "1.00000000",
+			"price" : "0.00300000",
+			"side" : "BUY",
+			"status" : "NEW",
+			"stopPrice" : "0.00000000",
+			"symbol" : "BNBBTC",
+			"type" : "LIMIT"
+		}
+	]
+}
+
+
+// BITTREX
+-- symbol can be used, if not, open orders for all symbols will be returned
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetAllOpenOrders",         
+    "uid":       436,   
+    "exchange":     "BITTREX"
+}
+
+// BITTREX REPLY:
+root: {
+	"ctRequestId" : "O4GBHF-UJFCY-OASQQP",
+	"message" : "",
+	"reply" : 
+	[
+		{
+			"orderId" : "67d69f48-9a4f-4909-9f5e-286685b6ee35",
+			"quantity" : 0.025000000000000001,
+			"side" : "SELL",
+			"symbol" : "USD-ETH",
+			"type" : "LIMIT"
+		},
+		{
+			"orderId" : "2d69317b-0d35-49da-9674-5f307f876259",
+			"quantity" : 0.025000000000000001,
+			"side" : "BUY",
+			"symbol" : "USD-ETH",
+			"type" : "LIMIT"
+		}
+	]
+}
+
+// BITSTAMP
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetAllOpenOrders",         
+    "uid":       436,   
+    "exchange":     "BITSTAMP",
+    "symbol":          "all"
+}
+
+
+// KRAKEN
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetAllOpenOrders",         
+    "uid":       436,   
+    "exchange":     "KRAKEN"
+}
+
+// COINBASE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetAllOpenOrders",         
+    "uid":       436,   
+    "exchange":     "COINBASE"
+}
+
+-- get all orders
+API: order::GetAllOrders
+// For limit, do not go over 30 to prevent exceed pusher limit
+// Note that a spearate API call will be created later to allow 
+// query all order histories
+// Mandatory fields: symbol
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetAllOrders",         
+    "uid":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "limit":        10
+}
+
+// BITTREX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetAllOrders",         
+    "uid":       436,                        
+    "exchange":     "BITTREX",
+    "limit":        10
+}
+
+
+// BITSTAMP
+// BITTREX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetAllOrders",         
+    "uid":       436,                        
+    "exchange":     "BITSTAMP",
+    "limit":        10
+}
+
+-- get trade history
+API: order::GetTradeHistory
+// BINANCE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetTradeHistory",         
+    "uid":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "fromId":       "0",
+    "limit":        10
+}
+
+// BINANCE REPLY
+[REPLY: postGetTradeHistoryProcessing]: {
+	"ctRequestId" : "O4GBHF-UJFCY-OASQQP",
+	"reply" : 
+	[
+		{
+			"orderId" : "113428476",
+			"origQty" : "1.00000000",
+			"price" : "0.00268470",
+			"side" : "SELL",
+			"symbol" : "BNBBTC",
+			"tranTime" : "1550857721267"
+		}
+	]
+}
+
+// COINBASE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetTradeHistory",         
+    "uid":       436,                        
+    "exchange":     "COINBASE",
+    "symbol":       "BTC-USDC"
+}
+
+// KRAKEN
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetTradeHistory",         
+    "uid":       436,                        
+    "exchange":     "KRAKEN",
+    "fromId":       "0",
+    "limit":        10
+}
+
+// BITTREX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetTradeHistory",         
+    "uid":       436,                        
+    "exchange":     "BITTREX"
+}
+
+
+
+-- GetOrderBook
+API: order::GetOrderBook
+// BINANCE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderBook",         
+    "uid":       436,      
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC"
+}
+
+// BITFINEX
+// BITTREX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderBook",         
+    "uid":       436,      
+    "exchange":     "BITFINEX",
+    "symbol":       "BTCUSD"
+}
+
+
+// BITTREX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderBook",         
+    "uid":       436,      
+    "exchange":     "BITTREX",
+    "symbol":       "ETH-USD"
+}
+
+
+// COINBASE
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderBook",         
+    "uid":       436,      
+    "exchange":     "COINBASE",
+    "symbol":       "BTC-USD"
+}
+
+
+// BITSTAMP
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderBook",         
+    "uid":       436,                        
+    "exchange":     "BITSTAMP",
+    "symbol":       "BTCUSD"
+}
+
+// KRAKEN
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "order",  
+    "subType":      "GetOrderBook",         
+    "uid":       436,                        
+    "exchange":     "KRAKEN",
+    "symbol":       "LTCUSD"
+}
+
+
+-- Funding
+API: generic getDepositHistory
+Symbol is not required; if provided, returns only deposit history for that symbol
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetDepositHistory",         
+    "uid":       436,      
+    "exchange":     "BINANCE"
+}
+
+// BITTREX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetDepositHistory",         
+    "uid":       436,      
+    "exchange":     "BITTREX"
+}
+
+
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetWithdrawHistory",         
+    "uid":       436,      
+    "exchange":     "BINANCE"
+}
+
+
+-- Portfolio
+:: Get all holdings from each exchange
+:: Get average cost for each asset
+:: Get date of the average cost calculated
+-- Implementation
+1) GetPortfolio for each exchange to get the total balance for each asset and average cost
+2) GetPortfolio exchange: raycore, get the aggregate balance for all assets
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetPortfolio",         
+    "uid":       436,      
+    "exchange":     "RAYCORE"
+}
+
+// Reply
+{
+	"ctRequestId": "cfa5511f-8c1a-492b-b81a-1462d03bbe99",
+	"reply": [{
+		"symbol": "BNB",
+		"total_amount": "7.07544",
+		"avaerage_cost": "3"
+		
+	}, {
+		"symbol": "BNB",
+		"amount": "7.07544",
+		"avaerage_cost": "3"
+		
+	}, {
+		"symbol": "BNB",
+		"amount": "7.07544",
+		"avaerage_cost": "3"
+		
+	}]
+}
+
+// BITFINEX
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetPortfolio",         
+    "uid":       436,                        
+    "exchange":     "BITFINEX"
+}
+
+// BITFINEX REPLY
+root: {
+	"ctRequestId" : "O4GBHF-UJFCY-OASQQP",
+	"reply" : 
+	[
+		{
+			"average_cost" : 5295.9775705056254,
+			"from" : 1554864512.0,
+			"symbol" : "BTC",
+			"to" : 1554864512.0,
+			"total_amount" : 4.0,
+			"total_cost" : 21183.910282022502
+		}
+	]
+}
+
+// KRAKEN Portfolio
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetPortfolio",         
+    "uid":       436,                        
+    "exchange":     "BITFINEX"
+}
+
+// BITTREX Portfolio
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetPortfolio",         
+    "uid":       436,                        
+    "exchange":     "BITTREX"
+}
+
+// GetBalanceExchange
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetBalanceExchange",         
+    "uid":       436,                        
+    "exchange":     "RAYCORE"
+}
+
+// REPLY
+{
+	"ctRequestId": "O4GBHF-UJFCY-OASQQP",
+	"reply": [{
+		"amount": 0.35999999999999999,
+		"asset": "ETH",
+		"exchange": "BITTREX"
+	}, {
+		"amount": 10.68768882,
+		"asset": "USD",
+		"exchange": "BITTREX"
+	}, {
+		"amount": 0.069910639999999996,
+		"asset": "XETH",
+		"exchange": "KRAKEN"
+	}, {
+		"amount": 0.001,
+		"asset": "XLTC",
+		"exchange": "KRAKEN"
+	}, {
+		"amount": 7.3e-07,
+		"asset": "XXBT",
+		"exchange": "KRAKEN"
+	}, {
+		"amount": 0.0031914000000000001,
+		"asset": "BNB",
+		"exchange": "BINANCE"
+	}, {
+		"amount": 0.0075295199999999996,
+		"asset": "BTC",
+		"exchange": "BINANCE"
+	}, {
+		"amount": 1.0,
+		"asset": "LTC",
+		"exchange": "BINANCE"
+	}, {
+		"amount": 0.0074999999999999997,
+		"asset": "BTC",
+		"exchange": "BITSTAMP"
+	}, {
+		"amount": 7.7999999999999998,
+		"asset": "USD",
+		"exchange": "BITSTAMP"
+	}]
+}
+
+
+// GetBalanceAsset
+{
+    "ctRequestId":	"O4GBHF-UJFCY-OASQQP",
+    "requestType":  "account",  
+    "subType":      "GetBalanceAsset",         
+    "uid":       436,                        
+    "exchange":     "RAYCORE"
+}
+
+// REPLY
+{
+    "ctRequestId": "O4GBHF-UJFCY-OASQQP",
+    "reply": [{
+        "amount": 0.0031914000000000001,
+        "asset": "BNB"
+    }, {
+        "amount": 0.015029519999999999,
+        "asset": "BTC"
+    }, {
+        "amount": 0.35999999999999999,
+        "asset": "ETH"
+    }, {
+        "amount": 1.0,
+        "asset": "LTC"
+    }, {
+        "amount": 18.487688819999999,
+        "asset": "USD"
+    }, {
+        "amount": 0.069910639999999996,
+        "asset": "XETH"
+    }, {
+        "amount": 0.001,
+        "asset": "XLTC"
+    }, {
+        "amount": 7.3e-07,
+        "asset": "XXBT"
+    }]
+}

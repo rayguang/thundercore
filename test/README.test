@@ -1,0 +1,45 @@
+Test case:
+send_order: market
+
+reply message:
+
+
+Test case:
+send_order: limit
+
+
+Test case:
+send_order: multiple market requests
+
+Test case:
+send_order multiple limit requests
+
+Test case:
+get all open orders
+
+
+Test case:
+get last 24 hours orders
+
+
+Test case:
+cancel order
+
+
+Test case:
+cancel orders
+
+
+Test case:
+API key / secrect errors
+
+
+Test case:
+order not filled
+
+
+Test case:
+order not synch
+
+Test case:
+auto cancel order if exchange returns cancelled orders

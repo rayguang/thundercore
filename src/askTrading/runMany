@@ -1,0 +1,7 @@
+#!/bin/bash
+clear
+for i in {1..5}
+do
+   echo "Run $i times"
+   ./askTrading 1234 &
+done

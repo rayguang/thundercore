@@ -1,0 +1,370 @@
+// Public Endpoints
+// GET	https://www.bitstamp.net/api/v2/ticker/{currency_pair}/
+// Request: 
+{
+    "requestType":  "generic",  
+    "subType":      "GetMarkets",         
+    "userID":       436,                        
+    "exchange":     "BITSTAMP",
+    "symbol":       "BTCUSD"
+}
+
+// Reply:
+{
+	"ask" : "5447.81",
+	"bid" : "5447.41",
+	"high" : "5479.73",
+	"last" : "5447.18",
+	"low" : "5372.00",
+	"open" : "5440.95",
+	"timestamp" : "1556198343",
+	"volume" : "6861.05450911",
+	"vwap" : "5432.46"
+}
+
+
+// Request: GetHourlyMarkets
+{
+    "requestType":  "generic",  
+    "subType":      "GetHourlyMarkets",         
+    "userID":       436,                        
+    "exchange":     "BITSTAMP",
+    "symbol":       "BTCUSD"
+}
+
+// Reply
+{
+	"ask" : "5456.58",
+	"bid" : "5455.14",
+	"high" : "5467.91",
+	"last" : "5456.85",
+	"low" : "5447.00",
+	"open" : "5447.60",
+	"timestamp" : "1556207833",
+	"volume" : "355.76020735",
+	"vwap" : "5461.52"
+}
+
+
+// Request: GetTransactions
+{
+    "requestType":  "generic",  
+    "subType":      "GetTransactions",         
+    "userID":       436,                        
+    "exchange":     "BITSTAMP",
+	"symbol":       "BTCUSD",
+	"limit":		5
+}
+
+// Reply
+too many to input here :), samples
+{
+	"amount" : "0.01001244",
+	"date" : "1556204405",
+	"price" : "5447.60",
+	"tid" : "86245957",
+	"type" : "0"
+},
+{
+	"amount" : "0.26428756",
+	"date" : "1556204405",
+	"price" : "5447.60",
+	"tid" : "86245956",
+	"type" : "0"
+}
+
+// Request: GetTradingPairs
+{
+    "requestType":  "generic",  
+    "subType":      "GetTradingPairs",         
+    "userID":       436,                        
+    "exchange":     "BITSTAMP"
+}
+
+// Reply
+[{
+	"base_decimals": 8,
+	"counter_decimals": 2,
+	"description": "Litecoin / U.S. dollar",
+	"minimum_order": "5.0 USD",
+	"name": "LTC/USD",
+	"trading": "Enabled",
+	"url_symbol": "ltcusd"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 2,
+	"description": "Ether / U.S. dollar",
+	"minimum_order": "5.0 USD",
+	"name": "ETH/USD",
+	"trading": "Enabled",
+	"url_symbol": "ethusd"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 5,
+	"description": "XRP / Euro",
+	"minimum_order": "5.0 EUR",
+	"name": "XRP/EUR",
+	"trading": "Enabled",
+	"url_symbol": "xrpeur"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 2,
+	"description": "Bitcoin Cash / U.S. dollar",
+	"minimum_order": "5.0 USD",
+	"name": "BCH/USD",
+	"trading": "Enabled",
+	"url_symbol": "bchusd"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 2,
+	"description": "Bitcoin Cash / Euro",
+	"minimum_order": "5.0 EUR",
+	"name": "BCH/EUR",
+	"trading": "Enabled",
+	"url_symbol": "bcheur"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 2,
+	"description": "Bitcoin / Euro",
+	"minimum_order": "5.0 EUR",
+	"name": "BTC/EUR",
+	"trading": "Enabled",
+	"url_symbol": "btceur"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 8,
+	"description": "XRP / Bitcoin",
+	"minimum_order": "0.001 BTC",
+	"name": "XRP/BTC",
+	"trading": "Enabled",
+	"url_symbol": "xrpbtc"
+}, {
+	"base_decimals": 5,
+	"counter_decimals": 5,
+	"description": "Euro / U.S. dollar",
+	"minimum_order": "5.0 USD",
+	"name": "EUR/USD",
+	"trading": "Enabled",
+	"url_symbol": "eurusd"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 8,
+	"description": "Bitcoin Cash / Bitcoin",
+	"minimum_order": "0.001 BTC",
+	"name": "BCH/BTC",
+	"trading": "Enabled",
+	"url_symbol": "bchbtc"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 2,
+	"description": "Litecoin / Euro",
+	"minimum_order": "5.0 EUR",
+	"name": "LTC/EUR",
+	"trading": "Enabled",
+	"url_symbol": "ltceur"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 2,
+	"description": "Bitcoin / U.S. dollar",
+	"minimum_order": "5.0 USD",
+	"name": "BTC/USD",
+	"trading": "Enabled",
+	"url_symbol": "btcusd"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 8,
+	"description": "Litecoin / Bitcoin",
+	"minimum_order": "0.001 BTC",
+	"name": "LTC/BTC",
+	"trading": "Enabled",
+	"url_symbol": "ltcbtc"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 5,
+	"description": "XRP / U.S. dollar",
+	"minimum_order": "5.0 USD",
+	"name": "XRP/USD",
+	"trading": "Enabled",
+	"url_symbol": "xrpusd"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 8,
+	"description": "Ether / Bitcoin",
+	"minimum_order": "0.001 BTC",
+	"name": "ETH/BTC",
+	"trading": "Enabled",
+	"url_symbol": "ethbtc"
+}, {
+	"base_decimals": 8,
+	"counter_decimals": 2,
+	"description": "Ether / Euro",
+	"minimum_order": "5.0 EUR",
+	"name": "ETH/EUR",
+	"trading": "Enabled",
+	"url_symbol": "etheur"
+}]
+
+
+// Request: GetEURUSD
+{
+    "requestType":  "generic",  
+    "subType":      "GetEURUSD",         
+    "userID":       436,                        
+	"exchange":     "BITSTAMP"
+}
+
+// Reply:
+{
+	"buy" : "1.1262",
+	"sell" : "1.1049"
+}
+
+// Private API 
+// Request: Get user account balance
+{
+    "requestType":  "Account",  
+    "subType":      "GetBalance",         
+    "userID":       436,                        
+    "exchange":     "BITSTAMP",
+    "symbol":       "BTCUSD"
+}
+
+// Reply
+{
+	"bch_available" : "0.00000000",
+	"bch_balance" : "0.00000000",
+	"bch_reserved" : "0.00000000",
+	"bchbtc_fee" : "0.25",
+	"bcheur_fee" : "0.25",
+	"bchusd_fee" : "0.25",
+	"btc_available" : "0.00000000",
+	"btc_balance" : "0.00000000",
+	"btc_reserved" : "0.00000000",
+	"btceur_fee" : "0.25",
+	"btcusd_fee" : "0.25",
+	"eth_available" : "0.00000000",
+	"eth_balance" : "0.00000000",
+	"eth_reserved" : "0.00000000",
+	"ethbtc_fee" : "0.25",
+	"etheur_fee" : "0.25",
+	"ethusd_fee" : "0.25",
+	"eur_available" : "0.00",
+	"eur_balance" : "0.00",
+	"eur_reserved" : "0.00",
+	"eurusd_fee" : "0.25",
+	"ltc_available" : "0.00000000",
+	"ltc_balance" : "0.00000000",
+	"ltc_reserved" : "0.00000000",
+	"ltcbtc_fee" : "0.25",
+	"ltceur_fee" : "0.25",
+	"ltcusd_fee" : "0.25",
+	"usd_available" : "0.00",
+	"usd_balance" : "0.00",
+	"usd_reserved" : "0.00",
+	"xrp_available" : "0.00000000",
+	"xrp_balance" : "0.00000000",
+	"xrp_reserved" : "0.00000000",
+	"xrpbtc_fee" : "0.25",
+	"xrpeur_fee" : "0.25",
+	"xrpusd_fee" : "0.25"
+}
+
+// Request: Get user trades
+// limit defines number of trades to be returned; if no limit specified, returns all trades up to 1000
+{
+    "requestType":  "Account",  
+    "subType":      "GetMyTrades",         
+    "userID":       436,                        
+    "exchange":     "BITSTAMP",
+    "symbol":       "btcusd",
+	"limit":            2
+}
+
+// Reply
+// datetime	Date and time.
+// id			Transaction ID.
+// type		Transaction type: 0 - deposit; 1 - withdrawal; 2 - market trade; 14 - sub account transfer.
+// usd			USD amount.
+// eur 		(v2 calls only)	EUR amount.
+// btc			BTC amount.
+// xrp 		(v2 calls only)	XRP amount.
+// btc_usd 	(or btc_eur if available)	Exchange rate.
+// fee			Transaction fee.
+// order_id	Executed order ID.
+// Supported values for currency_pair: btcusd, btceur, eurusd, 
+// xrpusd, xrpeur, xrpbtc, ltcusd, ltceur, ltcbtc, ethusd, etheur, ethbtc, bchusd, bcheur, bchbtc
+[
+	{
+		"btc" : "-8.70897132",
+		"btc_usd" : 729.25,
+		"datetime" : "2016-11-28 21:10:51",
+		"eur" : 0.0,
+		"fee" : "15.25000000",
+		"id" : 12534680,
+		"order_id" : 163593029,
+		"type" : "2",
+		"usd" : "6351.02"
+	},
+	{
+		"btc" : "-0.03501314",
+		"btc_usd" : 729.25,
+		"datetime" : "2016-11-28 21:10:51",
+		"eur" : 0.0,
+		"fee" : "0.07000000",
+		"id" : 12534679,
+		"order_id" : 163593029,
+		"type" : "2",
+		"usd" : "25.53"
+	}
+]
+
+// ************************************************************
+// Orders related APIs
+// Request: Get open orders
+// Supported values for currency_pair: btcusd, btceur, eurusd, xrpusd, 
+// xrpeur, xrpbtc, ltcusd, ltceur, ltcbtc, ethusd, etheur, ethbtc, bchusd, bcheur, bchbtc
+// Request
+{
+    "requestType":  "Orders",  
+    "subType":      "GetOpenOrders",         
+    "userID":       436,                        
+    "exchange":     "BITSTAMP"
+}
+
+
+// Request
+{
+    "requestType":  "Orders",  
+    "subType":      "GetOpenOrders",         
+    "userID":       436,                        
+	"exchange":     "BITSTAMP",
+	"symbol":		"BTCUSD"
+}
+
+
+// Request
+{
+    "requestType":  "Orders",  
+    "subType":      "GetOrderStatus",         
+    "userID":       436,                        
+	"exchange":     "BITSTAMP",
+	"orderID":		86388665
+}
+
+
+
+
+// Request: Place BUY limit order
+{
+    "requestType":  "Orders",  
+    "subType":      "SendLimitOrder",         
+    "userID":       436,                        
+	"exchange":     "BITSTAMP",
+	"symbol":		"BTCUSD",
+	"side":			"BUY",
+	"quantity":		0.001,
+	"price":		1000.1234,
+	"limitPrice":   6000.1234,
+	"timeInForce":	"DAY"
+}
+

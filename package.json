@@ -1,0 +1,27 @@
+{
+  "name": "trading_execution",
+  "version": "1.0.0",
+  "description": "trading execution engine for cryptoterminal",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/raycrypto/trading_execution.git"
+  },
+  "author": "Ray Guang",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/raycrypto/trading_execution#readme",
+  "dependencies": {
+    "ccxt": "^1.18.198",
+    "dotenv": "^7.0.0",
+    "json-socket": "^0.3.0",
+    "pusher": "^2.2.0",
+    "pusher-client": "^1.1.0",
+    "pusher-js": "^4.4.0"
+  }
+}

@@ -1,0 +1,26 @@
+////////////////////////////////////////////////////////////////////////////////
+//  keyutil.hpp
+//
+//
+//  Decrypt/Encrypt Key
+//
+//
+//  Copyright (C) 2019      Ray Guang   ray@cryptoterminal.io
+//
+//  舍得舍得 
+////////////////////////////////////////////////////////////////////////////////
+
+#ifndef __UTIL_KEYUTIL_H__
+#define __UTIL_KEYUTIL_H__
+
+namespace keytuil
+{
+    class Keyutil
+    {
+        virtual ~Keyutil();
+
+    };
+
+}
+
+#endif

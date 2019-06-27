@@ -1,0 +1,598 @@
+https://www.kraken.com/features/api#add-standard-order
+// Public endpoints test
+// Get server time
+{
+    "requestType":  "generic",  
+    "subType":      "GetServerTime",         
+    "userID":       436,                        
+    "exchange":     "kraken"
+}
+
+{
+	"error" : [],
+	"result" : 
+	{
+		"rfc1123" : "Mon,  6 May 19 17:07:06 +0000",
+		"unixtime" : 1557162426
+	}
+}
+
+
+// Get Asset Info
+// URL: https://api.kraken.com/0/public/Assets
+// info = info to retrieve (optional):
+//     info = all info (default)
+// aclass = asset class (optional):
+//     currency (default)
+// asset = comma delimited list of assets to get info on (optional.  default = all for given asset class)
+// Request
+{
+    "requestType":  "generic",  
+    "subType":      "GetAssetInfo",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+
+// Reply
+"result":{"ADA":{"aclass":"currency","altname":"ADA","decimals":8,"display_decimals":6},"ATOM":{"aclass":"currency","altname":"ATOM","decimals":8,"display_decimals":6},"BCH":{"aclass":"currency","altname":"BCH","decimals":10,"display_decimals":5},"BSV":{"aclass":"currency","altname":"BSV","decimals":10,"display_decimals":5},"DASH":{"aclass":"currency","altname":"DASH","decimals":10,"display_decimals":5},"EOS":{"aclass":"currency","altname":"EOS","decimals":10,"display_decimals":5},"GNO":{"aclass":"currency","altname":"GNO","decimals":10,"display_decimals":5},"KFEE":{"aclass":"currency","altname":"FEE","decimals":2,"display_decimals":2},"QTUM":{"aclass":"currency","altname":"QTUM","decimals":10,"display_decimals":6},"USDT":{"aclass":"currency","altname":"USDT","decimals":8,"display_decimals":4},"XDAO":{"aclass":"currency","altname":"DAO","decimals":10,"display_decimals":3},"XETC":{"aclass":"currency","altname":"ETC","decimals":10,"display_decimals":5},"XETH":{"aclass":"currency","altname":"ETH","decimals":10,"display_decimals":5},"XICN":{"aclass":"currency","altname":"ICN","decimals":10,"display_decimals":5},"XLTC":{"aclass":"currency","altname":"LTC","decimals":10,"display_decimals":5},"XMLN":{"aclass":"currency","altname":"MLN","decimals":10,"display_decimals":5},"XNMC":{"aclass":"currency","altname":"NMC","decimals":10,"display_decimals":5},"XREP":{"aclass":"currency","altname":"REP","decimals":10,"display_decimals":5},"XTZ":{"aclass":"currency","altname":"XTZ","decimals":8,"display_decimals":5},"XXBT":{"aclass":"currency","altname":"XBT","decimals":10,"display_decimals":5},"XXDG":{"aclass":"currency","altname":"XDG","decimals":8,"display_decimals":2},"XXLM":{"aclass":"currency","altname":"XLM","decimals":8,"display_decimals":5},"XXMR":{"aclass":"currency","altname":"XMR","decimals":10,"display_decimals":5},"XXRP":{"aclass":"currency","altname":"XRP","decimals":8,"display_decimals":5},"XXVN":{"aclass":"currency","altname":"XVN","decimals":4,"display_decimals":2},"XZEC":{"aclass":"currency","altname":"ZEC","decimals":10,"display_decimals":5},"ZCAD":{"aclass":"currency","altname":"CAD","decimals":4,"display_decimals":2},"ZEUR":{"aclass":"currency","altname":"EUR","decimals":4,"display_decimals":2},"ZGBP":{"aclass":"currency","altname":"GBP","decimals":4,"display_decimals":2},"ZJPY":{"aclass":"currency","altname":"JPY","decimals":2,"display_decimals":0},"ZKRW":{"aclass":"currency","altname":"KRW","decimals":2,"display_decimals":0},"ZUSD":{"aclass":"currency","altname":"USD","decimals":4,"display_decimals":2}}}
+
+// Get tradable asset pairs
+// info = info to retrieve (optional):
+//     info = all info (default)
+//     leverage = leverage info
+//     fees = fees schedule
+//     margin = margin info
+// pair = comma delimited list of asset pairs to get info on (optional.  default = all)
+{
+    "requestType":  "generic",  
+    "subType":      "GetAssetPairs",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+// Reply:
+too much to display
+
+
+// Get ticker information
+// pair = comma delimited list of asset pairs to get info on
+// Request
+{
+    "requestType":  "generic",  
+    "subType":      "GetTicker",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN",
+    "symbol":        "ZECUSD"
+}
+
+// Reply:
+{
+	"error" : [],
+	"result" : 
+	{
+		"XZECZUSD" : 
+		{
+			"a" : 
+			[
+				"55.37000",
+				"18",
+				"18.000"
+			],
+			"b" : 
+			[
+				"55.29000",
+				"23",
+				"23.000"
+			],
+			"c" : 
+			[
+				"55.28000",
+				"0.00098767"
+			],
+			"h" : 
+			[
+				"58.81000",
+				"58.81000"
+			],
+			"l" : 
+			[
+				"55.27000",
+				"55.27000"
+			],
+			"o" : "57.64000",
+			"p" : 
+			[
+				"57.26218",
+				"57.27705"
+			],
+			"t" : 
+			[
+				332,
+				433
+			],
+			"v" : 
+			[
+				"1775.01316452",
+				"2326.45290734"
+			]
+		}
+	}
+}
+
+// Get order book
+// pair = asset pair to get market depth for
+// count = maximum number of asks/bids (optional)
+// Request
+{
+    "requestType":  "generic",  
+    "subType":      "GetOrderbook",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN",
+    "symbol":         "ZECUSD"
+}
+
+// Reply:
+ {"error":[],"result":{"XZECZUSD":{"asks":[["55.37000","9.990",1557429866],["55.40000","10.990",1557429866],["55.47000","15.279",1557429865],["55.59000","6.326",1557429866],["55.60000","22.789",1557429862],["55.62000","25.000",1557429863],["55.66000","84.855",1557429864],["55.67000","200.000",1557429863],["56.14000","2.962",1557429862],["56.17000","3.591",1557429300],["56.50000","8.619",1557412334],["56.77000","0.101",1557423408],["58.48000","40.273",1557427317],["58.65000","0.190",1557379557],["58.80000","0.300",1557371054],["58.92000","0.031",1557428503],["59.48000","0.031",1557428503],["60.08000","5.649",1557428283],["60.32000","0.031",1557428503],["60.49000","0.200",1557388741],["60.71000","0.623",1557426110],["60.90000","5.000",1557426107],["61.44000","0.031",1557428503],["61.60000","198.497",1557426182],["61.83000","5.000",1557314391],["62.22000","2.121",1557425132],["62.26000","5.000",1557298123],["62.32000","6.000",1557217403],["63.00000","226.009",1557371583],["63.18000","5.000",1557227819],["63.88000","2.000",1556937727],["64.00000","1.000",1557258831],["65.00000","130.960",1557326797],["65.09000","5.000",1556315662],["65.48000","2.000",1557236618],["65.64000","5.000",1556942569],["65.99000","8.371",1556211562],["66.74000","0.101",1556252062],["67.00000","1.000",1556931817],["67.12000","2.000",1556129175],["68.51000","5.000",1556236893],["68.79000","2.000",1556129159],["68.90000","3.032",1556216630],["69.00000","2.000",1556886042],["69.49000","110.908",1557125710],["69.87000","5.000",1556158847],["70.00000","107.290",1557410005],["70.29000","0.522",1556150463],["70.50000","0.258",1556056459],["70.51000","2.000",1556129140],["70.52000","0.100",1556773630],["72.12000","5.000",1556130184],["72.25000","0.100",1555993862],["72.28000","2.000",1555193923],["72.50000","1.001",1557077935],["73.56000","5.000",1556021254],["74.00000","14.400",1556940703],["74.05000","3.109",1555409069],["74.08000","2.000",1555966801],["75.00000","0.400",1556551739],["75.28000","0.874",1555167523],["75.94000","2.000",1555082617],["76.00000","16.000",1557360196],["76.23000","5.000",1554928990],["76.67000","2.700",1554924268],["77.00000","0.030",1556231735],["77.49000","0.500",1554971140],["77.53000","27.530",1555385331],["77.83000","2.000",1555194045],["78.00000","11.000",1557186245],["79.00000","8.000",1544475602],["79.58000","33.000",1557202115],["79.78000","2.000",1555194054],["80.00000","225.000",1557206973],["81.77000","1.000",1554921999],["83.40000","1.450",1556893249],["85.00000","5.790",1556350768],["86.75000","10.000",1554465758],["87.00000","0.200",1543896769],["88.80000","7.000",1550498016],["89.00000","1.100",1545635298],["89.76000","0.161",1546362658],["89.89000","1.000",1554404618],["90.00000","0.790",1557258794],["90.12000","3.500",1556552483],["91.50000","150.000",1555639184],["92.00000","5.000",1554423227],["93.22000","0.500",1554260918],["94.00000","0.100",1543896811],["95.00000","1.000",1542788252],["97.50000","2.000",1542789408],["97.88000","0.700",1543199899],["98.00000","0.500",1554747773],["99.00000","100.000",1554316751],["100.00000","21.463",1556219649],["102.50000","1.000",1542788541],["104.45000","0.031",1557428503],["105.00000","2.000",1542788551],["106.66000","1.000",1554404633],["106.85000","1.000",1550399716]],"bids":[["55.25000","10.775",1557429863],["55.24000","74.047",1557429862],["55.23000","2.594",1557429862],["55.22000","62.193",1557429863],["55.21000","19.404",1557429866],["55.20000","23.000",1557429667],["55.16000","25.000",1557429863],["55.10000","213.326",1557429802],["55.09000","6.000",1557429612],["55.07000","0.510",1557429581],["55.03000","2.000",1557429043],["55.00000","6.084",1557429707],["54.97000","2.594",1557429862],["54.96000","76.315",1557429571],["54.87000","0.609",1557429400],["54.85000","1.503",1557429709],["54.83000","0.728",1557429632],["54.79000","24.686",1557429864],["54.78000","133.260",1557429802],["54.77000","0.726",1557429865],["54.71000","26.796",1557429316],["54.69000","34.521",1557429859],["54.68000","50.000",1557425589],["54.63000","4.115",1557429860],["54.54000","46.164",1557429850],["54.44000","26.652",1557429116],["54.22000","66.775",1557429850],["54.21000","26.652",1557424082],["54.00000","10.034",1557419737],["53.93000","87.101",1557429864],["53.92000","13.326",1557417604],["53.85000","1.000",1557418292],["53.74000","6.000",1557426116],["53.69000","100.421",1557429850],["53.68000","50.000",1557415595],["53.50000","8.500",1557275854],["53.46000","0.030",1557429730],["53.26000","13.326",1557407302],["53.14000","0.056",1557428284],["53.01000","5.000",1556735923],["53.00000","21.050",1557422194],["52.68000","50.000",1557415609],["52.43000","5.000",1556816028],["52.20000","0.257",1556622970],["52.10000","27.615",1557427316],["52.02000","13.326",1557422718],["51.90000","5.000",1554084750],["51.68000","50.000",1557415631],["51.41000","13.326",1557298224],["51.15000","20.015",1554102923],["51.00000","1.060",1557422237],["50.99000","11.689",1556258575],["50.87000","12.500",1557182788],["50.76000","13.326",1557428810],["50.68000","50.000",1557415671],["50.15000","50.000",1557065778],["50.12000","14.526",1554387536],["50.11000","1.100",1557331630],["50.00000","22.896",1557331607],["49.90000","5.000",1552405964],["48.92000","20.000",1557106574],["48.85000","0.579",1557345064],["48.69000","5.000",1552405954],["48.50000","19.300",1557182819],["48.10000","50.000",1556588669],["48.00000","49.788",1557422646],["47.50000","10.474",1552144649],["46.31000","5.000",1552307993],["46.00000","2173.914",1556907708],["45.15000","5.000",1552562313],["45.00000","3.000",1557422214],["44.44000","0.121",1550027049],["44.10000","40.000",1557072395],["42.50000","1.500",1544424767],["42.00000","1.000",1551720116],["41.30000","10.000",1549482182],["41.21000","1.000",1557347038],["41.00000","66.534",1557233205],["40.10000","5.000",1543348483],["37.93000","2.503",1542672764],["37.51000","5.350",1556914893],["36.00000","6.000",1544424719],["35.01000","5.700",1557376692],["35.00000","2.686",1544152576],["32.51000","6.200",1557174226],["31.01000","3.225",1556094917],["31.00000","5.600",1557172305],["30.66000","3.000",1515880912],["30.01000","6.650",1557003144],["26.00000","23.000",1547715763],["25.10000","2.000",1556848521],["25.00000","229.000",1556693391],["24.00000","2.000",1545729999],["21.20000","5.000",1554762496],["20.00000","170.050",1548824080],["19.00000","10.000",1556693404],["17.77000","400.000",1537190935],["17.04000","3.228",1539901439],["12.00000","10.000",1516656888],["11.00000","50.000",1557274212]]}}}
+
+
+ // Get recent trades
+not tested
+
+
+// Get recent spread data
+not tested
+
+// Private endpints
+// Get account balance
+// request
+{
+    "requestType":  "account",  
+    "subType":      "GetBalance",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+// Reply:
+{"error":[],"result":{"XXBT":"0.0000000000","ZUSD":"19112.6666"}}
+
+// Get trade balance
+// aclass = asset class (optional):
+//     currency (default)
+// asset = base asset used to determine balance (default = ZUSD)
+// request
+{
+    "requestType":  "account",  
+    "subType":      "GetTradeBalance",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN",
+    "twoFactor":    "847081"
+}
+
+// Reply:
+// eb = equivalent balance (combined balance of all currencies)
+// tb = trade balance (combined balance of all equity currencies)
+// m = margin amount of open positions
+// n = unrealized net profit/loss of open positions
+// c = cost basis of open positions
+// v = current floating valuation of open positions
+// e = equity = trade balance + unrealized net profit/loss
+// mf = free margin = equity - initial margin (maximum margin available to open new positions)
+// ml = margin level = (equity / initial margin) * 100
+{
+	"error" : [],
+	"result" : 
+	{
+		"c" : "0.0000",
+		"e" : "19112.6666",
+		"eb" : "19112.6666",
+		"m" : "0.0000",
+		"mf" : "19112.6666",
+		"n" : "0.0000",
+		"tb" : "19112.6666",
+		"v" : "0.0000"
+	}
+}
+
+// Get open orders
+// trades = whether or not to include trades in output (optional.  default = false)
+// userref = restrict results to given user reference id (optional)
+{
+    "requestType":  "trade",  
+    "subType":      "GetOpenOrders",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+
+// Reply 
+// refid = Referral order transaction id that created this order
+// userref = user reference id
+// status = status of order:
+//     pending = order pending book entry
+//     open = open order
+//     closed = closed order
+//     canceled = order canceled
+//     expired = order expired
+// opentm = unix timestamp of when order was placed
+// starttm = unix timestamp of order start time (or 0 if not set)
+// expiretm = unix timestamp of order end time (or 0 if not set)
+// descr = order description info
+//     pair = asset pair
+//     type = type of order (buy/sell)
+//     ordertype = order type (See Add standard order)
+//     price = primary price
+//     price2 = secondary price
+//     leverage = amount of leverage
+//     order = order description
+//     close = conditional close order description (if conditional close set)
+// vol = volume of order (base currency unless viqc set in oflags)
+// vol_exec = volume executed (base currency unless viqc set in oflags)
+// cost = total cost (quote currency unless unless viqc set in oflags)
+// fee = total fee (quote currency)
+// price = average price (quote currency unless viqc set in oflags)
+// stopprice = stop price (quote currency, for trailing stops)
+// limitprice = triggered limit price (quote currency, when limit based order type triggered)
+// misc = comma delimited list of miscellaneous info
+//     stopped = triggered by stop price
+//     touched = triggered by touch price
+//     liquidated = liquidation
+//     partial = partial fill
+// oflags = comma delimited list of order flags
+//     viqc = volume in quote currency
+//     fcib = prefer fee in base currency (default if selling)
+//     fciq = prefer fee in quote currency (default if buying)
+//     nompp = no market price protection
+// trades = array of trade ids related to order (if trades info requested and data available)
+{
+	"error" : [],
+	"result" : 
+	{
+		"open" : 
+		{
+			"O4GBHF-UJFCY-OASQQP" : 
+			{
+				"cost" : "0.00000",
+				"descr" : 
+				{
+					"close" : "",
+					"leverage" : "none",
+					"order" : "buy 0.01000000 XBTUSD @ limit 180.8",
+					"ordertype" : "limit",
+					"pair" : "XBTUSD",
+					"price" : "180.8",
+					"price2" : "0",
+					"type" : "buy"
+				},
+				"expiretm" : 0,
+				"fee" : "0.00000",
+				"limitprice" : "0.00000",
+				"misc" : "",
+				"oflags" : "fciq",
+				"opentm" : 1557454740.9026999,
+				"price" : "0.00000",
+				"refid" : null,
+				"starttm" : 0,
+				"status" : "open",
+				"stopprice" : "0.00000",
+				"userref" : 0,
+				"vol" : "0.01000000",
+				"vol_exec" : "0.00000000"
+			}
+		}
+	}
+}
+
+
+
+// Get closed orders
+// trades = whether or not to include trades in output (optional.  default = false)
+// userref = restrict results to given user reference id (optional)
+// start = starting unix timestamp or order tx id of results (optional.  exclusive)
+// end = ending unix timestamp or order tx id of results (optional.  inclusive)
+// ofs = result offset
+// closetime = which time to use (optional)
+//     open
+//     close
+//     both (default)
+{
+    "requestType":  "trade",  
+    "subType":      "GetClosedOrders",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+
+// Reply:
+// closed = array of order info.  See Get open orders.  Additional fields:
+//     closetm = unix timestamp of when order was closed
+//     reason = additional info on status (if any)
+// count = amount of available order info matching criteria
+
+"OTZFJR-VFXYO-YQ6VAB" : 
+			{
+				"closetm" : 1557181332.0815001,
+				"cost" : "43361.44",
+				"descr" : 
+				{
+					"close" : "",
+					"leverage" : "5:1",
+					"order" : "buy 250.00000000 ETHUSD @ market with 5:1 leverage",
+					"ordertype" : "market",
+					"pair" : "ETHUSD",
+					"price" : "0",
+					"price2" : "0",
+					"type" : "buy"
+				},
+				"expiretm" : 0,
+				"fee" : "69.37",
+				"limitprice" : "0.00000",
+				"misc" : "",
+				"oflags" : "fciq",
+				"opentm" : 1557181332.0576999,
+				"price" : "173.44",
+				"reason" : null,
+				"refid" : null,
+				"starttm" : 0,
+				"status" : "closed",
+				"stopprice" : "0.00000",
+				"userref" : 0,
+				"vol" : "250.00000000",
+				"vol_exec" : "250.00000000"
+			},
+
+
+
+// Query orders info
+// trades = whether or not to include trades in output (optional.  default = false)
+// userref = restrict results to given user reference id (optional)
+// txid = comma delimited list of transaction ids to query info about (50 maximum)
+{
+    "requestType":  "trade",  
+    "subType":      "QueryOrders",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+// IMPORTANT: the ctOrderId protocol needs to be reviewed.
+{
+    "requestType":  "trade",  
+    "subType":      "QueryOrders",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN",
+    "ctOrderID":      "O4GBHF-UJFCY-OASQQP"
+}
+
+
+// Reply
+{
+	"error" : [],
+	"result" : 
+	{
+		"O4GBHF-UJFCY-OASQQP" : 
+		{
+			"closetm" : 1557455130.7081001,
+			"cost" : "0.00000",
+			"descr" : 
+			{
+				"close" : "",
+				"leverage" : "none",
+				"order" : "buy 0.01000000 XBTUSD @ limit 180.8",
+				"ordertype" : "limit",
+				"pair" : "XBTUSD",
+				"price" : "180.8",
+				"price2" : "0",
+				"type" : "buy"
+			},
+			"expiretm" : 0,
+			"fee" : "0.00000",
+			"limitprice" : "0.00000",
+			"misc" : "",
+			"oflags" : "fciq",
+			"opentm" : 1557454740.9026999,
+			"price" : "0.00000",
+			"reason" : "User requested",
+			"refid" : null,
+			"starttm" : 0,
+			"status" : "canceled",
+			"stopprice" : "0.00000",
+			"userref" : 0,
+			"vol" : "0.01000000",
+			"vol_exec" : "0.00000000"
+		}
+	}
+}
+
+
+
+// Get open positions
+// txid = comma delimited list of transaction ids to restrict output to
+// docalcs = whether or not to include profit/loss calculations (optional.  default = false)
+// Request
+{
+    "requestType":  "trade",  
+    "subType":      "GetOpenPositions",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+// Reply:
+// <position_txid> = open position info
+//     ordertxid = order responsible for execution of trade
+//     pair = asset pair
+//     time = unix timestamp of trade
+//     type = type of order used to open position (buy/sell)
+//     ordertype = order type used to open position
+//     cost = opening cost of position (quote currency unless viqc set in oflags)
+//     fee = opening fee of position (quote currency)
+//     vol = position volume (base currency unless viqc set in oflags)
+//     vol_closed = position volume closed (base currency unless viqc set in oflags)
+//     margin = initial margin (quote currency)
+//     value = current value of remaining position (if docalcs requested.  quote currency)
+//     net = unrealized profit/loss of remaining position (if docalcs requested.  quote currency, quote currency scale)
+//     misc = comma delimited list of miscellaneous info
+//     oflags = comma delimited list of order flags
+//         viqc = volume in quote currency
+{
+	"error" : [],
+	"result" : {}
+}
+
+
+// Get ledgers info
+// aclass = asset class (optional):
+//     currency (default)
+// asset = comma delimited list of assets to restrict output to (optional.  default = all)
+// type = type of ledger to retrieve (optional):
+//     all (default)
+//     deposit
+//     withdrawal
+//     trade
+//     margin
+// start = starting unix timestamp or ledger id of results (optional.  exclusive)
+// end = ending unix timestamp or ledger id of results (optional.  inclusive)
+// ofs = result offset
+{
+    "requestType":  "trade",  
+    "subType":      "GetLedgerInfo",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN"
+}
+
+// Reply:
+// <ledger_id> = ledger info
+//     refid = reference id
+//     time = unx timestamp of ledger
+//     type = type of ledger entry
+//     aclass = asset class
+//     asset = asset
+//     amount = transaction amount
+//     fee = transaction fee
+//     balance = resulting balance
+{
+    "LT7LXQ-CZMQI-KQVNVR" : 
+    {
+        "aclass" : "currency",
+        "amount" : "0.0000",
+        "asset" : "ZUSD",
+        "balance" : "30470.6819",
+        "fee" : "0.0368",
+        "refid" : "TRVN36-7USKU-3CSNAQ",
+        "time" : 1557339331.5854001,
+        "type" : "rollover"
+    },
+    "LVWQ7O-NFGQZ-Z3CLBX" : 
+    {
+        "aclass" : "currency",
+        "amount" : "2.4440",
+        "asset" : "ZUSD",
+        "balance" : "30064.6874",
+        "fee" : "0.1059",
+        "refid" : "TM4VGR-AKXN5-RI64I6",
+        "time" : 1557277014.7365999,
+        "type" : "margin"
+    },
+
+}
+
+
+
+// Send Market Order
+// pirce only 1 decimal
+// side: lower case either buy or sell
+// volume/quantity cannot be too low
+{
+    "requestType":  "trade",  
+    "subType":      "SendLimitOrder",         
+    "userID":       436,                        
+	"exchange":     "KRAKEN",
+	"side":			"buy",
+	"symbol":		"XBTUSD",
+	"quantity":      0.01,
+	"price":		180.8	
+}
+
+// Reply
+{
+	"error" : [],
+	"result" : 
+	{
+		"descr" : 
+		{
+			"order" : "buy 0.01000000 XBTUSD @ limit 180.8"
+		},
+		"txid" : 
+		[
+			"O4GBHF-UJFCY-OASQQP"
+		]
+	}
+}
+
+{
+    "ctOrderID":    "356932e6-df35-4932-98d2-f323ea3773db",
+	"requestType":  "trade",
+	"subType":      "SendMarketOrder",
+    "userID":       436,
+    "exchange":     "KRAKEN",
+    "symbol":       "BTCUSD",
+    "side":         "BUY",
+    "quantity":     1.1,
+    "price":        0.0028588
+}
+
+
+// Request
+{
+    "requestType":  "trade",  
+    "subType":      "CancelOneOrder",         
+    "userID":       436,                        
+	"exchange":     "KRAKEN",
+	"ctOrderID":	"O4GBHF-UJFCY-OASQQP"
+}
+
+
+// Reply
+{
+	"error" : [],
+	"result" : 
+	{
+		"count" : 1
+	}
+}
+
+
+// Request
+{
+    "requestType":  "trade",  
+    "subType":      "SendMarketOrder",         
+    "userID":       436,                        
+	"exchange":     "KRAKEN",
+	"side":			"buy",
+	"symbol":		"XBTUSD",
+	"quantity":      0.005
+}
+
+// Reply
+{
+	"error" : [],
+	"result" : 
+	{
+		"descr" : 
+		{
+			"order" : "buy 0.00500000 XBTUSD @ market"
+		},
+		"txid" : 
+		[
+			"OKYXPG-F4SVF-UW2H66"
+		]
+	}
+}
+
+
+{
+    "requestType":  "trade",  
+    "subType":      "QueryOrders",         
+    "userID":       436,                        
+    "exchange":     "KRAKEN",
+    "ctOrderID":      "OEOUB3-NDC2H-2F4JKD"
+}

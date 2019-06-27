@@ -1,0 +1,8 @@
+https://github.com/binance-exchange/binance-official-api-docs/blob/master/errors.md
+
+{
+	"code" : -1105,
+	"msg" : "Parameter 'timeInForce' was empty."
+}
+
+

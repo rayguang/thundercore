@@ -1,0 +1,5 @@
+clear
+rm ./trading
+make
+./trading 1234
+

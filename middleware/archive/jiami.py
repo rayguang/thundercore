@@ -1,0 +1,217 @@
+#################################
+# Ray Guang 
+# April 2019
+################################
+
+import pysher
+import sys
+import time
+import os
+import json
+
+import base64
+import hashlib
+from Crypto import Random
+from Crypto.Cipher import AES
+
+import mysql.connector
+from mysql.connector import Error
+
+from dotenv import load_dotenv
+from pathlib import Path
+env_path = Path('..')/'.env'
+load_dotenv(dotenv_path=env_path)
+
+# Add a logging handler so we can see the raw communication data
+import logging
+root = logging.getLogger()
+root.setLevel(logging.INFO)
+ch = logging.StreamHandler(sys.stdout)
+root.addHandler(ch)
+
+appkey = os.getenv("APP_KEY_JIAMI")
+pusher = pysher.Pusher(appkey, cluster=os.getenv("APP_CLUSTER_JIAMI"))
+
+# To move this into .env
+# My SQL Credentials--------------------------------------------------------
+frontend_user       = os.getenv("FRONT_DBUSER")
+frontend_password   = os.getenv("FRONT_DBPASSWORD")
+frontend_database   = os.getenv("FRONT_DBNAME")
+frontend_host       = os.getenv("FRONT_DBHOST") #Prod
+
+backend_user         = os.getenv("BACK_DBUSER")
+backend_password    = os.getenv("BACK_DBPASSWORD")
+backend_database    = os.getenv("BACK_DBNAME")
+backend_host        = os.getenv("BACK_DBHOST") #Prod
+
+time_format = '%Y-%m-%d %H:%M:%S'
+
+'''
+Define function to retrieve the API key/secret from 
+front-end server
+1) retrieve encrypted key/secret once newuser creation message received
+2) save to trading engine DB or separate DB
+3) delete key/secret from front-end DB once 2) succeed 
+'''
+class AESCipher(object):
+    def __init__(self, key):
+        self.bs = 16
+        self.key = hashlib.sha256(key.encode('utf-8')).digest()
+
+    def encrypt(self, raw):
+        if raw is None or len(raw) == 0:
+            raise NameError("No raw is given to encrypt!!!")
+        raw = self._pad(raw)
+        iv = Random.new().read(AES.block_size)
+        #print ("encrypt iv: ", base64.b64encode(iv))
+        cipher = AES.new(self.key, AES.MODE_CBC, iv)
+        encrypted = cipher.encrypt(raw)
+        encoded = base64.b64encode(iv+encrypted)
+        #print ("encrypt func:\n[iv:] {}\n[encrypted:] {}\n[encoded:] {}\n".format(base64.b64encode(iv), encrypted, encoded))
+        return str(encoded, 'utf-8')
+
+    def decrypt(self, enc):
+        if enc is None or len(enc) == 0:
+            raise NameError("No enc is given to decrpt !!!")
+        decoded = base64.b64decode(enc)
+        iv = decoded[:16]
+        cipher = AES.new(self.key, AES.MODE_CBC, iv)
+        decrypted = cipher.decrypt(decoded[16:])
+        #print ("decrypt IV: ", base64.b64encode(iv))
+        #print ("decoded: ", decoded)
+        #print ("decrypted:", decrypted)
+        return str(self._unpad(decrypted), 'utf-8')
+
+    def _pad(self, s):
+        return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
+
+    def _unpad(self, s):
+        return s[:-ord(s[len(s)-1:])]
+
+# def insert_exchangeapi(user_id, excahnge_name, exchange_id, apikey, apisecret, create_time):
+
+# def update_exchangeapi(user_id, exchange_name, exchange_id, apikey, apisecret, update_time):
+
+def  func_encrypt(message):
+    print("Received message: ", message)
+
+    # Parsing json message
+    msg_json        = json.loads(message)
+    requestType     = msg_json['requestType']
+    subType         = msg_json['subType']
+    userId          = msg_json['userID']
+    exchange        = msg_json['exchange']
+    print("Message received requestType: {}, subType: {}, userId: {}, exchange: {}".format(requestType, subType, userId, exchange))
+
+    # Setup DB conneciton
+    global conn
+    global cursor
+
+    print("Connecting to front DB ...... ")
+    try:
+        conn_front = mysql.connector.connect(host=frontend_host,
+                                       database=frontend_database,
+                                       user=frontend_user,
+                                       password=frontend_password )
+        if conn_front.is_connected():
+            print("*** Connected to front DB successfully ***")
+        cursor = conn_front.cursor(buffered=True)
+
+        # Retrieve info from DB
+        sql_select_query = """select user_id, exchange_name, exchange_id, apikey, apisecret from exchange_api_staging where user_id = %s and exchange_name = %s """
+        cursor.execute(sql_select_query, (userId, exchange))
+        rows = cursor.fetchall()
+
+        
+        print ('Total rows: ', cursor.rowcount)
+        for row in rows:
+            #print(row)
+
+            _exchange_id = row[2]
+            _secret      = row[3]
+            _key         = row[4]
+
+    except Error as e:
+        print(e)
+    finally:
+        conn_front.close()
+        print("*** Connection to front DB is closed. ***")
+
+    # Save API pair to DB
+    try:
+        conn_back = mysql.connector.connect(host=backend_host,
+                                       database=backend_database,
+                                       user=backend_user,
+                                       password=backend_password )
+        if conn_back.is_connected():
+            print("*** Connected to backend DB successfully ***")
+        cursor_back = conn_back.cursor(prepared=True)
+
+        #print("Data before encryption: ", _secret)
+        #cipher = AESCipher(_key[:16])
+        cipher = AESCipher(_key)
+        secret_encrypted = cipher.encrypt(_secret)
+        
+        #print("Data after encryption: ", secret_encrypted)
+        #print("Data after decryption: ", cipher.decrypt(secret_encrypted))
+
+
+        # Save API to backend DB
+        sql_delete_query = """ DELETE FROM `exchange_API` where user_id = %s and exchange_name = %s  """
+        sql_insert_query = """ INSERT INTO `exchange_API` (`user_id`, `exchange_name`, `exchange_id`, `apikey`, `apisecret`) VALUES (%s, %s, %s, %s, %s)"""
+        delete_tuple     = (userId, exchange)
+        insert_tuple     = (userId, exchange, _exchange_id, _key, secret_encrypted)
+        cursor_back.execute(sql_delete_query, delete_tuple)
+        conn_back.commit()
+        print("Delete any existing records for userId {} in exchange {}".format(userId, exchange))
+
+        cursor_back.execute(sql_insert_query, insert_tuple)
+        conn_back.commit()
+        print("User API inserted into exchange_API successfully.")
+
+        # Delete API in front DB
+        try:
+            conn_front = mysql.connector.connect(host=frontend_host,
+                                       database=frontend_database,
+                                       user=frontend_user,
+                                       password=frontend_password )
+            if conn_front.is_connected():
+                print("*** Connected to front DB successfully -- after API insertion to backend ***")
+            cursor_front = conn_front.cursor(buffered=True)
+
+            sql_delete_front_query  = """DELETE from `exchange_api_staging` where user_id = %s and exchange_name = %s  """
+            delete_front_tuple      = (userId, exchange)
+            cursor_front.execute(sql_delete_front_query, delete_front_tuple)
+            conn_front.commit()
+            print("User API delete from frontend successfully.")
+        except Error as e:
+            print(e)
+        finally:
+            conn_back.close()
+            print("*** Connection to front DB closed - after API insertion to backend ***")
+
+            
+    except Error as e:
+        print(e)
+    finally:
+        conn_back.close()
+        print("Connection to backend DB is closed.")
+
+    # Delete API combo from front-end DB if save DB successfully
+
+
+# We can't subscribe until we've connected, so we use a callback handler
+# to subscribe when able
+def connect_handler(data):
+    channel = pusher.subscribe('my-channel')
+    channel.bind('my-event', func_encrypt)
+
+print ("Connecting to pusher APP ID {}".format(os.getenv("APP_ID_JIAMI")))
+pusher.connection.bind('pusher:connection_established', connect_handler)
+pusher.connect()
+
+while True:
+    # Do other things in the meantime here...
+    time.sleep(1)
+
+

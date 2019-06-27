@@ -1,0 +1,316 @@
+// Public endpoints
+// Get server time
+{
+    "requestType":  "generic",  
+    "subType":      "GetServerTime",         
+    "userID":       436,                        
+    "exchange":     "Coinbase"
+}
+
+// Get Products
+// Get a list of available currency pairs for trading.
+// Request
+{
+    "requestType":  "generic",  
+    "subType":      "GetProducts",         
+    "userID":       436,                        
+    "exchange":     "Coinbase"
+}
+
+// Reply
+[
+    {
+		"base_currency" : "ETH",
+		"base_increment" : "0.00000001",
+		"base_max_size" : "2800",
+		"base_min_size" : "0.01",
+		"cancel_only" : false,
+		"display_name" : "ETH/USDC",
+		"id" : "ETH-USDC",
+		"limit_only" : false,
+		"margin_enabled" : false,
+		"max_market_funds" : "1000000",
+		"min_market_funds" : "10",
+		"post_only" : false,
+		"quote_currency" : "USDC",
+		"quote_increment" : "0.01",
+		"status" : "online",
+		"status_message" : ""
+	},
+	{
+		"base_currency" : "ZRX",
+		"base_increment" : "0.00001",
+		"base_max_size" : "600000",
+		"base_min_size" : "1",
+		"cancel_only" : false,
+		"display_name" : "ZRX/EUR",
+		"id" : "ZRX-EUR",
+		"limit_only" : false,
+		"margin_enabled" : false,
+		"max_market_funds" : "100000",
+		"min_market_funds" : "10",
+		"post_only" : false,
+		"quote_currency" : "EUR",
+		"quote_increment" : "0.000001",
+		"status" : "online",
+		"status_message" : ""
+	},
+
+]
+
+
+// Get Product Order Book
+// Get a list of open orders for a product. The amount of detail shown can be customized with the level parameter.
+// Request
+{
+    "requestType":  "generic",  
+    "subType":      "GetProductOrderBook",         
+    "userID":       436,                        
+    "exchange":     "Coinbase",
+    "symbol":       "BTC-USD"
+}
+
+//Reply:
+{
+	"asks" : 
+	[
+		[
+			"5885.19",
+			"0.1",
+			1
+		]
+	],
+	"bids" : 
+	[
+		[
+			"5883.64",
+			"6",
+			2
+		]
+	],
+	"sequence" : 9392409847
+}
+
+// Get Product Ticker
+// Snapshot information about the last trade (tick), best bid/ask and 24h volume.
+// Request: 
+{
+    "requestType":  "generic",  
+    "subType":      "GetTicker",         
+    "userID":       436,                        
+    "exchange":     "Coinbase",
+    "symbol":       "BTC-USD"
+}
+
+// Reply:
+{
+	"ask" : "5868.28",
+	"bid" : "5867.12",
+	"price" : "5868.27000000",
+	"size" : "0.00228424",
+	"time" : "2019-05-08T18:33:06.363Z",
+	"trade_id" : 63161726,
+	"volume" : "12101.25561049"
+}
+
+
+// Get Trades
+// List the latest trades for a product.
+// GET /products/<product-id>/trades
+// Request:
+{
+    "requestType":  "generic",  
+    "subType":      "GetProductTrades",         
+    "userID":       436,                        
+    "exchange":     "Coinbase",
+    "symbol":       "BTC-USD"
+}
+
+// Reply:
+[
+    {
+		"price" : "5865.34000000",
+		"side" : "sell",
+		"size" : "0.49214186",
+		"time" : "2019-05-08T18:35:26.868Z",
+		"trade_id" : 63161813
+	},
+	{
+		"price" : "5865.99000000",
+		"side" : "buy",
+		"size" : "3.82377169",
+		"time" : "2019-05-08T18:35:25.764Z",
+		"trade_id" : 63161812
+	},
+	{
+		"price" : "5865.99000000",
+		"side" : "buy",
+		"size" : "4.34006602",
+		"time" : "2019-05-08T18:35:25.719Z",
+		"trade_id" : 63161811
+	},
+]
+
+
+
+// Get currencies
+// List known currencies.
+// Request:
+{
+    "requestType":  "generic",  
+    "subType":      "GetCurrencies",         
+    "userID":       436,                        
+    "exchange":     "Coinbase",
+    "symbol":       "BTC-USD"
+}
+
+// Reply
+[
+    {
+		"price" : "5867.42000000",
+		"side" : "buy",
+		"size" : "0.00512331",
+		"time" : "2019-05-08T18:37:01.915Z",
+		"trade_id" : 63161928
+	},
+	{
+		"price" : "5867.43000000",
+		"side" : "sell",
+		"size" : "0.02484744",
+		"time" : "2019-05-08T18:37:01.686Z",
+		"trade_id" : 63161927
+	},
+	{
+		"price" : "5867.43000000",
+		"side" : "sell",
+		"size" : "0.00473432",
+		"time" : "2019-05-08T18:37:01.427Z",
+		"trade_id" : 63161926
+	},
+	{
+		"price" : "5867.42000000",
+		"side" : "buy",
+		"size" : "0.01494601",
+		"time" : "2019-05-08T18:37:00.924Z",
+		"trade_id" : 63161925
+	},
+	{
+		"price" : "5867.42000000",
+		"side" : "buy",
+		"size" : "0.00858763",
+		"time" : "2019-05-08T18:36:59.948Z",
+		"trade_id" : 63161924
+	},
+
+]
+
+
+// Private authenticated endpoints
+// Get all accounts
+{
+    "requestType":  "ACCOUNT",  
+    "subType":      "GetListAccounts",         
+    "userID":       436,                        
+    "exchange":     "Coinbase"
+}
+
+// Reply:
+[{
+	"available" : "0",
+	"balance" : "0.0000000000000000",
+	"currency" : "LTC",
+	"hold" : "0.0000000000000000",
+	"id" : "b72a3b4f-ae7d-4bdf-a2d9-dacb2c9e8ec3",
+	"profile_id" : "e52b5c13-9f32-41ae-9764-dcc59b460072"
+},
+{
+	"available" : "0",
+	"balance" : "0.0000000000000000",
+	"currency" : "LOOM",
+	"hold" : "0.0000000000000000",
+	"id" : "c307f43c-37f6-4a04-ab4f-b5f7e3366694",
+	"profile_id" : "e52b5c13-9f32-41ae-9764-dcc59b460072"
+}]
+
+
+// Get an Account
+// Information for a single account. Use this endpoint when you know the account_id.
+// id	Account ID
+// balance	total funds in the account
+// holds	funds on hold (not available for use)
+// available	funds available to withdraw or trade
+{
+    "requestType":  "ACCOUNT",  
+    "subType":      "GetAccount",         
+    "userID":       436,                        
+	"exchange":     "Coinbase",
+	"accountId":	"c307f43c-37f6-4a04-ab4f-b5f7e3366694"
+}
+
+// Reply
+{
+	"available" : "0",
+	"balance" : "0.0000000000000000",
+	"currency" : "LOOM",
+	"hold" : "0.0000000000000000",
+	"id" : "c307f43c-37f6-4a04-ab4f-b5f7e3366694",
+	"profile_id" : "e52b5c13-9f32-41ae-9764-dcc59b460072"
+}
+
+
+// Request
+{
+    "requestType":  "ACCOUNT",  
+    "subType":      "GetAccountHistory",         
+    "userID":       436,                        
+	"exchange":     "Coinbase",
+	"accountId":	"c307f43c-37f6-4a04-ab4f-b5f7e3366694"
+}
+
+//Reply
+[]
+
+// Request
+{
+    "requestType":  "ACCOUNT",  
+    "subType":      "GetHolds",         
+    "userID":       436,                        
+	"exchange":     "Coinbase",
+	"accountId":	"c307f43c-37f6-4a04-ab4f-b5f7e3366694"
+}
+
+// Reply
+[]
+
+
+// Request:
+// Place a market order
+{
+    "ctOrderID":    "356932e6-df35-4932-98d2-f323ea3773db",
+	"requestType":  "trade",
+	"subType":      "SendMarketOrder",
+    "userID":       436,
+    "exchange":     "COINBASE",
+    "symbol":       "BTC-USD",
+    "side":         "buy",
+    "quantity":     0.001,
+    "price":        5000
+}
+
+
+// Place a limit order
+{
+    "ctOrderID":    "356932e6-df35-4932-98d2-f323ea3773db",
+	"requestType":  "trade",
+	"subType":      "SendLimitOrder",
+    "userID":       436,
+    "exchange":     "COINBASE",
+    "symbol":       "ETH-USDC",
+	"side":         "buy",
+	"timeInForce": "GTC",
+    "quantity":     0.001,
+    "price":        5008
+}
+
+// Reply
+tested suucessfully without penny trades

@@ -1,0 +1,29 @@
+# dotenv
+.env
+
+/node_modules
+*.txt
+logs/*
+
+# Ignore the build and lib dirs
+build
+/libexec
+
+trade_signals/arbitrage/crossbitfinex/bin
+trade_signals/arbitrage/crossbitfinex/lib
+
+# Ignore any executables
+bin/*
+
+# Ignore Mac specific files
+.DS_Store
+
+.idea
+.vscode
+
+/.vscode
+
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/tasks.json
+example*

@@ -1,0 +1,595 @@
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: Get account (TESTED)
+{
+    "requestType":  "generic",  
+    "subType":      "Account",         
+    "userID":       436,                        
+    "exchange":     "BINANCE"
+    "HMAC":         xxxxxx
+}
+
+// Reply: Get account
+{
+    "makerCommission": 15,
+    "takerCommission": 15,
+    "buyerCommission": 0,
+    "sellerCommission": 0,
+    "canTrade": true,
+    "canWithdraw": true,
+    "canDeposit": true,
+    "updateTime": 123456789,
+    "balances": [
+      {
+        "asset": "BTC",
+        "free": "4723846.89208129",
+        "locked": "0.00000000"
+      },
+      {
+        "asset": "LTC",
+        "free": "4763368.68006011",
+        "locked": "0.00000000"
+      }
+    ]
+  }
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Order related message formats
+//Type	            MANDATORY parameters
+//LIMIT	            timeInForce, quantity, price
+//MARKET	        quantity
+//STOP_LOSS	        quantity, stopPrice    (not available for all coins)
+//STOP_LOSS_LIMIT	timeInForce, quantity, price, stopPrice
+//TAKE_PROFIT	    quantity, stopPrice    (not available for all coins)
+//TAKE_PROFIT_LIMIT	timeInForce, quantity, price, stopPrice
+//LIMIT_MAKER	    quantity, price
+
+// Request: send_order: buy market (TESTED)
+// IMPORTANT: no price field added, otherwise rapidjson memory allocation error
+{
+    "ctOrderID":    "783ddef8-df4a-4cc5-bfb1-0a757f6e83cb",
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "side":         "BUY",
+    "subType":    "MARKET",
+    "quantity":     1.5,    
+    "timeInForce":  ""           
+}
+
+// Reply: buy market
+{
+	"clientorderId" : "783ddef8-df4a-4cc5-bfb1-0a757f6e83cb",
+	"cummulativeQuoteQty" : "0.00562410",
+	"executedQty" : "1.50000000",
+	"fills" : 
+	[
+		{
+			"commission" : "0.00112500",
+			"commissionAsset" : "BNB",
+			"price" : "0.00374940",
+			"qty" : "1.50000000",
+			"tradeId" : 39794467
+		}
+	],
+	"orderId" : 128382255,
+	"origQty" : "1.50000000",
+	"price" : "0.00000000",
+	"side" : "BUY",
+	"status" : "FILLED",
+	"symbol" : "BNBBTC",
+	"timeInForce" : "GTC",
+	"transactTime" : 1553258341960,
+	"type" : "MARKET"
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: send_order: buy limit (TESTED)
+{
+    "ctOrderID":    "356932e6-df35-4932-98d2-f323ea3773db",
+    "requestType":  "send_order",
+    "userID":       436,
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "side":         "BUY",
+    "subType":      "LIMIT",
+    "timeInForce":  "GTC",                 
+    "quantity":     1.1,
+    "price":        0.0028588
+}
+// TimeInForce: GTC, FOK, IOC
+
+// Reply: buy limit, example #1
+{
+	"clientorderId" : "TTxua5ONF9s1Fw0bR698xk",
+	"cummulativeQuoteQty" : "0.00000000",
+	"executedQty" : "0.00000000",
+	"fills" : [],
+	"orderId" : 125550679,
+	"origQty" : "1.00000000",
+	"price" : "0.00285700",
+	"side" : "BUY",
+	"status" : "NEW",
+	"symbol" : "BNBBTC",
+	"timeInForce" : "GTC",
+	"transactTime" : 1552792187593,
+	"type" : "LIMIT"
+}
+
+// exchange reply to buy limit, example #2
+
+{
+    "clientorderId" : "2jRxk6GfywZE5YpEkTkrLU",
+    "cummulativeQuoteQty" : "0.00000000",
+    "executedQty" : "0.00000000",
+    "fills" : [],
+    "orderId" : 126058306,
+    "origQty" : "2.00000000",
+    "price" : "0.00200000",
+    "side" : "BUY",
+    "status" : "NEW",
+    "symbol" : "BNBBTC",
+    "timeInForce" : "GTC",
+    "transactTime" : 1552872133517,
+    "type" : "LIMIT"
+}
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+// Request: send_order: buy iceberg (NOT fully tested) 
+{
+    "ctOrderID":    "25a68947-5e94-4f00-a56a-7ed83631ba7f",
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "BUY",
+    "subType":      "ICEBERG",
+    "Quantity":     1.0,
+    "IcebergQty":   5,    
+    "Price":        "",
+    "TimeInForce":  ""           
+}
+
+//Trigger order price rules against market price for both MARKET and LIMIT versions:
+//Price above market price: STOP_LOSS BUY, TAKE_PROFIT SELL
+//Price below market price: STOP_LOSS SELL, TAKE_PROFIT BUY
+// ORDER REQUEST: stop loss limit (TESTED)
+{
+    "ctOrderID":    "4f9fa793-a8fb-43e2-a184-1da42730119f", 
+    "requestType":  "send_order",
+    "userID":       436,
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "BUY",
+    "subType":      "STOP_LOSS_LIMIT",
+    "TimeInForce":  "GTC",                   
+    "Quantity":     1.0,
+    "Price":        0.0051,
+    "StopPrice":    0.004
+}
+
+// exchange Reply to STOP_LOSS_LIMIT
+{
+	"clientorderId" : "202a3520-6992-4961-8119-3221a11b2394",
+	"orderId" : 131863642,
+	"symbol" : "BNBBTC",
+	"transactTime" : 1553702193146
+}
+
+// ORDER REQUEST: take profit limit (TESTED)
+{
+    "ctOrderID":    "144633fd-0f2b-4f4a-8673-27b6c7c4e06f",
+    "requestType":  "send_order",
+    "userID":       436,
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "SELL",
+    "subType":      "TAKE_PROFIT_LIMIT",
+    "TimeInForce":  "GTC",                     
+    "Quantity":     1.0,
+    "Price":        0.0058574,
+    "StopPrice":    0.006
+}
+
+// exchange reply 
+{
+	"clientorderId" : "144633fd-0f2b-4f4a-8673-27b6c7c4e06f",
+	"orderId" : 131854367,
+	"symbol" : "BNBBTC",
+	"transactTime" : 1553700477753
+}
+
+
+// ORDER REQUEST: limit maker (function disabled at this moment)
+{   
+    "ctOrderID":    "e8fa4cc8-4134-4a75-b857-ad51acd43b22",
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "BUY",
+    "subType":      "LIMIT_MAKER",
+    "Quantity":     1.0,    
+    "Price":        0.0025
+}
+
+
+
+// ORDER REQUEST: iceberg
+// Example #1 with limit
+{
+    "requestType":  "send_order",
+    "userID":       436,
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "side":         "SELL",
+    "subType":      "LIMIT",
+    "timeInForce":  "GTC",                      // GTC, FOK, IOC
+    "quantity":     1.0,
+    "price":        0.0028574,
+    "icebergQty:"  xxx
+}
+
+// Example #2 with limit maker
+{
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "side":         "BUY",
+    "subType":      "LIMIT_MAKER",
+    "quantity":     1.0,    
+    "price":        xxx,
+    "icebergQty:"   xxx
+
+}
+
+// get_allOrders
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// get_tradehist message format
+{
+    "requestType":          "get_tradehist",
+    "userID":               436,                
+    "exchange":             "BINANCE",              
+    "symbol":               "BNBBTC",           
+    "fromId":               0,                  // Optional. TradeId to fetch from, default gets most recent trades 
+    "limit":                0,                  // Optional. Default 500, max 1000
+    "newClientorderId":     ""
+}
+
+// get_tradehist reply
+{
+    "symbol": "BNBBTC",
+    "id": 28457,
+    "orderId": 100234,
+    "price": "4.00000100",
+    "qty": "12.00000000",
+    "quoteQty": "48.000012",
+    "commission": "10.10000000",
+    "commissionAsset": "BNB",
+    "time": 1499865549590,
+    "isBuyer": true,
+    "isMaker": false,
+    "isBestMatch": true
+  }
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: Either orderId or origClientorderId must be provided 
+{
+    "ctOrderID":            "25172038-80c9-47c2-b77c-6f9f4db56cf5",
+	"requestType":          "get_order",
+	"userID":               436,
+    "exchange":             "BINANCE",
+    "subType":              "Get",
+	"symbol":               "BNBBTC",
+	"orderId":              ""
+}
+
+{
+    "ctOrderID":            "",
+	"requestType":          "get_order",
+	"userID":               436,
+    "exchange":             "BINANCE",
+    "subType":              "Get",
+	"symbol":               "BNBBTC",
+	"orderId":              128511654
+}
+
+// exchange reply #1: BinaCPP::get_order("BNBBTC",0,"f2b320d2-9aef-4794-b134-f61ced3acb7d",recvWindow,exchangeAnswer);
+{
+	"clientorderId" : "f2b320d2-9aef-4794-b134-f61ced3acb7d",
+	"cummulativeQuoteQty" : "0.00000000",
+	"executedQty" : "0.00000000",
+	"icebergQty" : "0.00000000",
+	"isWorking" : true,
+	"orderId" : 127995269,
+	"origQty" : "1.30000000",
+	"price" : "0.00285900",
+	"side" : "BUY",
+	"status" : "NEW",
+	"stopPrice" : "0.00000000",
+	"symbol" : "BNBBTC",
+	"time" : 1553201354952,
+	"timeInForce" : "GTC",
+	"type" : "LIMIT",
+	"updateTime" : 1553201354952
+}
+
+// exchange reply #2
+{
+	"clientorderId" : "f2b320d2-9aef-4794-b134-f61ced3acb7d",
+	"cummulativeQuoteQty" : "0.00000000",
+	"executedQty" : "0.00000000",
+	"icebergQty" : "0.00000000",
+	"isWorking" : true,
+	"orderId" : 127995269,
+	"origQty" : "1.30000000",
+	"price" : "0.00285900",
+	"side" : "BUY",
+	"status" : "CANCELED",
+	"stopPrice" : "0.00000000",
+	"symbol" : "BNBBTC",
+	"time" : 1553201354952,
+	"timeInForce" : "GTC",
+	"type" : "LIMIT",
+	"updateTime" : 1553268457921
+}
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: get_openOrders message format (TESTED)
+// symbol is normally required. All orders for any simbol will be pulled if no symbol is specified.
+{
+    "requestType":          "get_order",
+    "userID":               436,                
+    "exchange":             "BINANCE",
+    "subType":              "Get_OpenOrders",              
+    "symbol":               "BNBBTC"           
+}
+
+// exchange Reply #1
+[]
+
+
+// exchange Reply #2
+[
+	{
+		"clientorderId" : "25172038-80c9-47c2-b77c-6f9f4db56cf5",
+		"cummulativeQuoteQty" : "0.00000000",
+		"executedQty" : "0.00000000",
+		"icebergQty" : "0.00000000",
+		"isWorking" : true,
+		"orderId" : 128511654,
+		"origQty" : "1.30000000",
+		"price" : "0.00285900",
+		"side" : "BUY",
+		"status" : "NEW",
+		"stopPrice" : "0.00000000",
+		"symbol" : "BNBBTC",
+		"time" : 1553280154704,
+		"timeInForce" : "GTC",
+		"type" : "LIMIT",
+		"updateTime" : 1553280154704
+	},
+	{
+		"clientorderId" : "da1f2703-c09d-4db2-9767-091a493fe145",
+		"cummulativeQuoteQty" : "0.00000000",
+		"executedQty" : "0.00000000",
+		"icebergQty" : "0.00000000",
+		"isWorking" : true,
+		"orderId" : 128513599,
+		"origQty" : "1.30000000",
+		"price" : "0.00285900",
+		"side" : "BUY",
+		"status" : "NEW",
+		"stopPrice" : "0.00000000",
+		"symbol" : "BNBBTC",
+		"time" : 1553280518341,
+		"timeInForce" : "GTC",
+		"type" : "LIMIT",
+		"updateTime" : 1553280518341
+	}
+]
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// get_allorder message format #1 (TESTED)
+{
+    "requestType":          "get_order",
+    "userID":               436,                
+    "exchange":             "BINANCE",
+    "subType":              "Get_AllOrders",              
+    "symbol":               "BNBBTC"           
+}
+
+// get_allorder message format #2
+// If no symbol is specified, all orders will be returned
+// If no Limit is specified, all orders will be returned (cancelled, filled etc). Default return 500, max 1000 orders
+// Specify FromID to get trades only from FromID
+{
+    "requestType":          "get_order",
+    "userID":               436,                
+    "exchange":             "BINANCE",
+    "subType":              "Get_AllOrders",              
+    "symbol":               "BNBBTC",
+    "Limit":               5,
+    "FromID":               ""
+}
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: get my trades (TESTED)
+{
+    "requestType":          "get_order",
+    "userID":               436,                
+    "exchange":             "BINANCE",
+    "subType":              "get_myTrades",              
+    "symbol":               "BNBBTC",
+    "Limit":               5,
+    "FromID":               ""
+}
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: cancel_order message format (TESTED)
+// Either ctOrderID, origClientorderId must be provided, but not both (they should be the same anyway)
+{
+    "requestType":          "cancel_order",
+    "userID":                436,
+    "exchange":             "BINANCE",
+    "subType":              "CancelOneOrder",
+    "symbol":               "BNBBTC",
+    "ctOrderID":            "c76c0b8a-e2dc-432c-a4ce-021eedf63d57",    
+    "orderId":              0,
+    "origClientorderId":    "c76c0b8a-e2dc-432c-a4ce-021eedf63d57",
+    "newClientorderId":     ""
+}
+
+{
+    "requestType":          "cancel_order",
+    "userID":                436,
+    "exchange":             "BINANCE",
+    "subType":              "CancelOneOrder",
+    "symbol":               "BNBBTC",
+    "ctOrderID":            "da1f2703-c09d-4db2-9767-091a493fe145",    
+    "orderId":              0,
+    "newClientorderId":     ""
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: CancelAllOrder (TESTD)
+{
+    "requestType":          "cancel_order",
+    "userID":                436,
+    "exchange":             "BINANCE",
+    "subType":              "CancelAllOrders",
+    "symbol":               "BNBBTC"
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: CancelAllLimitOrders (TESTED)
+{
+    "requestType":          "cancel_order",
+    "userID":                436,
+    "exchange":             "BINANCE",
+    "subType":              "CancelAllLimitOrders",
+    "symbol":               "BNBBTC"
+}
+
+// exchange Reply for one order cancelled
+// If multiple orders cancelled, multiple json messages in same format will be returned
+
+{
+	"clientorderId" : "pSg8h92xsKjBJmudJzzK4E",
+	"cummulativeQuoteQty" : "0.00000000",
+	"executedQty" : "0.00000000",
+	"orderId" : 131457768,
+	"origClientorderId" : "356932e6-df35-4932-98d2-f323ea3773db",
+	"origQty" : "1.10000000",
+	"price" : "0.00285900",
+	"side" : "BUY",
+	"status" : "CANCELED",
+	"symbol" : "BNBBTC",
+	"timeInForce" : "GTC",
+	"type" : "LIMIT"
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Request: CancelAllStopLimitOrders (TESTED)
+{
+    "requestType":          "cancel_order",
+    "userID":                436,
+    "exchange":             "BINANCE",
+    "subType":              "CancelAllStopLimitOrders",
+    "symbol":               "BNBBTC"
+}
+
+// exchange Reply
+{
+	"clientorderId" : "WIPYeBOnr7quMv6OzXBmBc",
+	"cummulativeQuoteQty" : "0.00000000",
+	"executedQty" : "0.00000000",
+	"orderId" : 131871949,
+	"origClientorderId" : "797fb88f-9f17-4fe5-8d51-b7027eb9b777",
+	"origQty" : "1.00000000",
+	"price" : "0.00585700",
+	"side" : "SELL",
+	"status" : "CANCELED",
+	"stopPrice" : "0.00585700",
+	"symbol" : "BNBBTC",
+	"timeInForce" : "GTC",
+	"type" : "TAKE_PROFIT_LIMIT"
+}
+
+
+
+// OrderTypes currently not supported for all coins in Binance, TAKE_PROFIT, STOP_LOSS
+// ORDER REQUEST: take profit
+// when market price > stop price
+{
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "SELL",
+    "subType":      "TAKE_PROFIT",
+    "Quantity":     1.0,    
+    "StopPrice":    0.005                     
+}
+
+{
+    "ctOrderID":    "9a8bc00b-4a76-42d3-ae59-06f5a6363b53",
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "SELL",
+    "subType":      "TAKE_PROFIT",
+    "Quantity":     1.0,    
+    "StopPrice":    "0.005"           
+}
+
+{
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "BUY",
+    "subType":      "TAKE_PROFIT",
+    "Quantity":     1.0,    
+    "StopPrice":    xxx                     // when stop price > market price
+}
+
+// ORDER REQUEST: stop loss
+{
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "BUY",
+    "subType":      "STOP_LOSS",
+    "Quantity":     1.0,    
+    "StopPrice":    xxx                     // when stop price > market price
+}
+
+{
+    "requestType":  "send_order",           
+    "userID":       436,                        
+    "exchange":     "BINANCE",
+    "symbol":       "BNBBTC",
+    "Side":         "SELL",
+    "subType":      "STOP_LOSS",
+    "Quantity":     1.0,    
+    "StopPrice":    xxx                     // when market price > stop price
+}

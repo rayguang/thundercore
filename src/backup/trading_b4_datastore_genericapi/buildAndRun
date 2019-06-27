@@ -1,0 +1,10 @@
+clear
+rm -f ./trading
+make
+
+if [ $? -eq 0 ]
+then
+	 ./trading.run.sh
+else
+	echo "Make failed! Please check error and rerun build script -_-"
+fi
