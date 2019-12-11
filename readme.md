@@ -40,7 +40,7 @@ This is where the test code are stored.
 #### $HOME/trade_signals
 This is where the trade signals are stored.
 
-#### Process to add new exchange
+### How to add a new exchange
 1. build new exchange API $HOME/API
 1. add compiled lib to $HOME/lib
 1. add headers to $HOME/include
