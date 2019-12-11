@@ -1,4 +1,4 @@
-Racycore Crypto Currency Trading Engine Readme
+## Thundercore Crypto Currency Trading Engine Readme
 
 ### Description
 This project is a concurrent trading message processing system, which does order execution, order management, account management as well as market info such as orderbook and ticker price.
