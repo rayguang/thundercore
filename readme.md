@@ -19,10 +19,14 @@ Home Directory:
 /home/ray/dev/trading_execution
 
 #### $HOME/API
-This is the C++ implementation of exchange API. To compile the libraries, run
+This is the C++ implementation of exchange API. To compile the libraries, run the following:
 ```
 $HOME/API/src/build.sh
+
+# For example, to compile API for Kraken
+thundercore/API/krakcpp/src/build.sh
 ```
+This will build and generate the libraries which you can use for any other projects.
 
 #### $HOME/include
 This is where the header files are stored.
