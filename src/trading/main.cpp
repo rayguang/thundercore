@@ -24,10 +24,10 @@ Memo:   Dashedade
 
 // Init DB environment
 // TODO: load from .env
-const std::string host="35.225.200.25";
-const std::string user="root";
-const std::string password="Bitcoin2019!!";
-const std::string db="trading";
+const std::string host="THIS_IS_THE_HOST_IP"; # e.g., 127.0.0.1
+const std::string user="THIS_IS_THE_USER_NAME"; # e.g., trade_user
+const std::string password="PASS_WORD"; # e.g., I_cannot_tell_you_my_password
+const std::string db="database_schema"; # e.g., db_trading
 
 std::string _dbConnectString = "host=" + host + ";user=" + user + ";password=" + password + ";db="+db +";compress=true;auto-reconnect=true";
 std::string _dbConnectStringNoPass = "host=" + host + ";user=" + user + ";password=xxxx"+";db="+db +";compress=true;auto-reconnect=true";
