@@ -3,11 +3,10 @@ Racycore Crypto Currency Trading Engine Readme
 ### Description
 This project is a concurrent trading message processing system, which does order execution, order management, account management as well as market info such as orderbook and ticker price.
 
-The code base includes mainly two parts.
+The code base includes mainly three parts.
 1. A C++ implementation of full API of 6 exchanges RESTful and websockets for Binance. These exchanges are Binance, Bitfinex, Bittrex, Bitstamp, Coinbase, Kraken
 1. A C++ API wrapper that provides standard API endpoints to interact with any 3rd party code. In our case, a HTML/Javascript UI.
-
-There is also a component called middleware which relays the JSON message from front-end to backend trading engine.
+1. A middleware which relays the JSON message from front-end to backend trading engine. Currently this is coded in Node.JS. A GO version is under development.
 
 ### Todo
 1. Review firewall rules on the trading host 35.199.2.70. For example only white list the pusher server and exchange api servers, the rest traffic in/to any other IPs should be blocked.
