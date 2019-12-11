@@ -15,8 +15,6 @@ The code base includes mainly three parts.
 1. Activate all the API functions for front-end. The current UI only implements a small portion of the APIs that provided by the backend. It can be easily extended with more sophiscated features, such as aggregated stats and analytics as well as advanced trading algorithm. 
 
 ### Directory Structure 
-Home Directory:
-/home/ray/dev/trading_execution
 
 #### $HOME/API
 This is the C++ implementation of exchange API. To compile the libraries, run the following:
