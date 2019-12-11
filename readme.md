@@ -20,8 +20,9 @@ Home Directory:
 
 #### $HOME/API
 This is the C++ implementation of exchange API. To compile the libraries, run
-
+```
 $HOME/API/src/build.sh
+```
 
 #### $HOME/include
 This is where the header files are stored.
