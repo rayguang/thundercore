@@ -8,12 +8,6 @@ The code base includes mainly three parts.
 1. A C++ API wrapper that provides standard API endpoints to interact with any 3rd party code. In our case, a HTML/Javascript UI.
 1. A middleware which relays the JSON message from front-end to backend trading engine. Currently this is coded in Node.JS. A GO version is under development.
 
-### Todo
-1. Review firewall rules on the trading host 35.199.2.70. For example only white list the pusher server and exchange api servers, the rest traffic in/to any other IPs should be blocked.
-1. Implement past trades for the exchange, which shows the trades filled of the whole exchange. This is can be done either via a public REST request or websocket.
-1. Extend websocket project. I have build websocket for Binance orderbook (C++) and coinbase pro/kraken in python for websocket ticker as demo code. Either of them can be extended to other exchanges with full websocket for orderbook, ticker price and real time filled trades.
-1. Activate all the API functions for front-end. The current UI only implements a small portion of the APIs that provided by the backend. It can be easily extended with more sophiscated features, such as aggregated stats and analytics as well as advanced trading algorithm. 
-
 ### Directory Structure 
 
 #### $HOME/API
