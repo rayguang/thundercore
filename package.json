@@ -1,7 +1,7 @@
 {
   "name": "trading_execution",
   "version": "1.0.0",
-  "description": "trading execution engine for cryptoterminal",
+  "description": "trading execution engine",
   "main": "index.js",
   "directories": {
     "lib": "lib"
