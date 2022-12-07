@@ -17,7 +17,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/raycrypto/trading_execution#readme",
   "dependencies": {
-    "ccxt": "^1.18.198",
+    "ccxt": "^1.95.43",
     "dotenv": "^7.0.0",
     "json-socket": "^0.3.0",
     "pusher": "^2.2.0",
